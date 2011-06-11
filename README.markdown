@@ -2,6 +2,10 @@
 
 This project is opensource, but it's still **VERY** green. You can use it on your projects but don't expect it to be perfect yet.
 
+## Why images and javascript directory provided?
+
+This uses AVA Pattern paradigm; also we'll provide a boilerplate HTML/Haml document in the future (using HTML5Boilerplate sweetness).
+
 # Love and Licenses
 
 ##### Survival-Kit wouldn't exist without the help of some major tools:
