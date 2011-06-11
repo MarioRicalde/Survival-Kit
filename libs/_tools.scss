@@ -1,0 +1,71 @@
+// Survival ✚ Kit
+
+// Debug Variable.
+$debug: false !default;
+
+// 
+// Shortcut to remove margin an padding.
+// Used on several @mixins.
+// 
+.no-mp {
+  margin:0;
+  padding:0;
+}
+
+// 
+// @TODO: Add docs to no-mp!
+// 
+@mixin no-mp {
+  @extend .no-mp;
+}
+
+// 
+// Center a Element.
+// 
+@mixin center-container($width: 1000px, $vertical-margin:0) {
+  width: $width;
+  margin:$vertical-margin auto;
+}
+
+// 
+// Inline Block CrossBrowser.
+// Disregards FF2 and IE6
+// 
+@mixin inline-block {
+  display: inline-block;
+  zoom: 1; // ie7
+}
+
+// 
+// Shortcut to set absolute positioning.
+//
+@mixin position($top, $right:0, $bottom:0, $left:0) {
+  position:absolute;
+  @if "#{$top}" != "0" { top: $top; }
+  @if "#{$right}" != "0" { right: $right; }
+  @if "#{$bottom}" != "0" { bottom: $bottom; }
+  @if "#{$left}" != "0" { left: $left; }
+}
+
+// Set a debug variable.
+@mixin debug($color:red) {
+  @if $debug == true {
+    background: rgba($color, 0.2); // incompatible with IE. 
+  }
+}
+
+
+// Crossbrowser linear gradient.
+// Compatible Browsers: FF3.6+ Saf4+ Chrome IE6-IE9
+@mixin gradient($top, $bottom, $reverse:false) {
+  @if $reverse == true {
+    $temp: $top;
+    $top: $bottom;
+    $bottom: $temp;
+  }
+  background-color: $bottom;
+  background-image: -moz-linear-gradient(top, $top, $bottom); /* FF3.6 */
+  background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0, $top),color-stop(1, $bottom)); // Saf4+, Chrome
+  background-image: linear-gradient(top, $top, $bottom);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$top}', EndColorStr='#{$bottom}'); // IE6–IE9
+}

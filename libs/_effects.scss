@@ -1,0 +1,26 @@
+// Survival ✚ Kit 
+
+// Add a Bendy shadow to a squar element.
+// @author Chris Eppstein
+@mixin bendy-shadow($width, $angle: 5deg, $color: rgba(#333, 0.5)) {
+  position: relative;
+  z-index: 1;
+  @include box-shadow(0 10px 5px -5px $color);
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    width: $width / 2;
+    height: 10px;
+    z-index: -1;
+    @include box-shadow(0 10px 10px 1px $color);
+  }
+  &:before {
+    left: 10px;
+    @include rotate(-$angle);
+  }
+  &:after {
+    right: 10px;
+    @include rotate($angle);
+  }
+}

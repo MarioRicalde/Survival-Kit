@@ -1,0 +1,8 @@
+// Survival ✚ Kit
+
+// Add docs to float-list!
+@mixin float-list($side:left) {
+  @include no-mp;
+  list-style-type: none;
+  li { float:$side; }
+}
