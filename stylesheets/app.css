@@ -1,0 +1,509 @@
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+ins {
+  background-color: #ff9;
+  color: #000;
+  text-decoration: none;
+}
+
+mark {
+  background-color: #ff9;
+  color: #000;
+  font-style: italic;
+  font-weight: bold;
+}
+
+del {
+  text-decoration: line-through;
+}
+
+abbr[title], dfn[title] {
+  border-bottom: 1px dotted;
+  cursor: help;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+
+.ext-hide-text {
+  text-indent: -119988px;
+  overflow: hidden;
+  text-align: left;
+  display: block;
+  direction: ltr;
+  outline: none;
+}
+
+.no-mp {
+  margin: 0;
+  padding: 0;
+}
+
+/* incase an inverted custom gradient isn't specified */
+.fancy-button-reset-base-class, .simple_form .button {
+  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
+  background: url('../images/vendor/fancy-buttons/button_bg.png?1306784179') repeat-x bottom left;
+  margin: 0;
+  width: auto;
+  overflow: visible;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none;
+  border-style: solid;
+  font-weight: bold;
+}
+.fancy-button-reset-base-class::-moz-focus-inner, .simple_form .button::-moz-focus-inner {
+  border: none;
+  padding: 0;
+}
+.fancy-button-reset-base-class:focus, .simple_form .button:focus {
+  outline: none;
+}
+
+h1 {
+  font-size: 285%;
+  line-height: 34.2px;
+  margin: 11.4px 0;
+}
+
+h2 {
+  font-size: 254%;
+  line-height: 30.4px;
+  margin: 10.133px 0;
+}
+
+h3 {
+  font-size: 222%;
+  line-height: 26.6px;
+  margin: 8.867px 0;
+}
+
+h4 {
+  font-size: 190%;
+  line-height: 22.8px;
+  margin: 7.6px 0;
+}
+
+h5 {
+  font-size: 159%;
+  line-height: 19px;
+  margin: 6.333px 0;
+}
+
+h6 {
+  font-size: 127%;
+  line-height: 15.2px;
+  margin: 5.067px 0;
+}
+
+.simple_form {
+  padding: 5px 0;
+  text-align: center;
+}
+.simple_form > .hint {
+  padding: 5px 0;
+  overflow: hidden;
+  display: inline-block;
+}
+.simple_form label {
+  vertical-align: middle;
+  display: inline-block;
+  margin: 0 8px 0 0;
+}
+.simple_form .ext-sfr, .simple_form .input .hint, .simple_form span.error {
+  display: inline-block;
+  width: 108px;
+  vertical-align: middle;
+}
+.simple_form .input {
+  text-align: left;
+  padding: 5px 0;
+  overflow: hidden;
+}
+.simple_form .input.string label, .simple_form .input.numeric label, .simple_form .input.text label {
+  padding: 10px 0;
+}
+.simple_form .input .hint {
+  margin-left: 8px;
+  font-size: 100%;
+  color: #6E6E6E;
+}
+.simple_form textarea, .simple_form input[type=text], .simple_form input[type=password] {
+  -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
+  -o-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
+  border: 1px solid #CCCCCC;
+  outline: 0;
+  padding: 10px 6px;
+  vertical-align: top;
+  width: 300px;
+}
+.simple_form textarea:focus, .simple_form input[type=text]:focus, .simple_form input[type=password]:focus {
+  -moz-box-shadow: 0 0 6px rgba(23, 135, 208, 0.7);
+  -webkit-box-shadow: 0 0 6px rgba(23, 135, 208, 0.7);
+  -o-box-shadow: 0 0 6px rgba(23, 135, 208, 0.7);
+  box-shadow: 0 0 6px rgba(23, 135, 208, 0.7);
+  border: 1px solid #7DBEF1;
+}
+.simple_form input.check_boxes, .simple_form input.radio, .simple_form input.boolean {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.simple_form span.error {
+  color: #D65C5C;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.simple_form #error_explanation {
+  background: #FFEBD6;
+  padding: 10px 20px 15px 20px;
+  border: 1px solid #FFB36C;
+  margin: 19px 0;
+  font-size: 12px;
+  color: #895334;
+  -moz-box-shadow: #d4d4d4 0 0 10px;
+  -webkit-box-shadow: #d4d4d4 0 0 10px;
+  -o-box-shadow: #d4d4d4 0 0 10px;
+  box-shadow: #d4d4d4 0 0 10px;
+}
+.simple_form #error_explanation h2 {
+  font-size: 150%;
+  line-height: 18px;
+  margin: 6px 0;
+  color: #AE4910;
+}
+.simple_form .button {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -o-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -khtml-border-radius: 6px;
+  border-radius: 6px;
+  font-size: 18px;
+  line-height: 1.2em;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  background-color: #1e84be;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aec8d6), color-stop(10%, #719eb7), color-stop(50%, #457088), color-stop(50%, #40677e), color-stop(100%, #5183a0));
+  background-image: -webkit-linear-gradient(#aec8d6, #719eb7 10%, #457088 50%, #40677e 50%, #5183a0);
+  background-image: -moz-linear-gradient(#aec8d6, #719eb7 10%, #457088 50%, #40677e 50%, #5183a0);
+  background-image: -o-linear-gradient(#aec8d6, #719eb7 10%, #457088 50%, #40677e 50%, #5183a0);
+  background-image: -ms-linear-gradient(#aec8d6, #719eb7 10%, #457088 50%, #40677e 50%, #5183a0);
+  background-image: linear-gradient(#aec8d6, #719eb7 10%, #457088 50%, #40677e 50%, #5183a0);
+  border-color: #304e5f;
+  text-shadow: #0d3850 0px 1px 1px;
+  -moz-box-shadow: rgba(255, 255, 255, 0.431) 0 0 0.1em 1px inset;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.431) 0 0 0.1em 1px inset;
+  -o-box-shadow: rgba(255, 255, 255, 0.431) 0 0 0.1em 1px inset;
+  box-shadow: rgba(255, 255, 255, 0.431) 0 0 0.1em 1px inset;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  -o-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  -khtml-background-clip: padding-box;
+  background-clip: padding-box;
+  margin: 10px 0;
+}
+.simple_form .button, .simple_form .button:visited {
+  color: white;
+}
+.simple_form .button:hover, .simple_form .button:focus {
+  background-color: #1c7bb1;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #a4c1d1), color-stop(10%, #6797b2), color-stop(50%, #40677e), color-stop(50%, #3b5f74), color-stop(100%, #4c7b95));
+  background-image: -webkit-linear-gradient(#a4c1d1, #6797b2 10%, #40677e 50%, #3b5f74 50%, #4c7b95);
+  background-image: -moz-linear-gradient(#a4c1d1, #6797b2 10%, #40677e 50%, #3b5f74 50%, #4c7b95);
+  background-image: -o-linear-gradient(#a4c1d1, #6797b2 10%, #40677e 50%, #3b5f74 50%, #4c7b95);
+  background-image: -ms-linear-gradient(#a4c1d1, #6797b2 10%, #40677e 50%, #3b5f74 50%, #4c7b95);
+  background-image: linear-gradient(#a4c1d1, #6797b2 10%, #40677e 50%, #3b5f74 50%, #4c7b95);
+  border-color: #2b4655;
+  text-shadow: #0b2e43 0px 1px 1px;
+}
+.simple_form .button:hover, .simple_form .button:hover:visited, .simple_form .button:focus, .simple_form .button:focus:visited {
+  color: white;
+}
+.simple_form .button:active {
+  background-color: #1a72a4;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #40677e), color-stop(30%, #436d84), color-stop(50%, #3c6277), color-stop(50%, #37596d), color-stop(100%, #4d7e99));
+  background-image: -webkit-linear-gradient(#40677e, #436d84 30%, #3c6277 50%, #37596d 50%, #4d7e99);
+  background-image: -moz-linear-gradient(#40677e, #436d84 30%, #3c6277 50%, #37596d 50%, #4d7e99);
+  background-image: -o-linear-gradient(#40677e, #436d84 30%, #3c6277 50%, #37596d 50%, #4d7e99);
+  background-image: -ms-linear-gradient(#40677e, #436d84 30%, #3c6277 50%, #37596d 50%, #4d7e99);
+  background-image: linear-gradient(#40677e, #436d84 30%, #3c6277 50%, #37596d 50%, #4d7e99);
+  border-color: #263e4b;
+  text-shadow: #082535 0px -1px -1px;
+  -moz-box-shadow: #304e5f 0 0.08em 0.2em 1px inset;
+  -webkit-box-shadow: #304e5f 0 0.08em 0.2em 1px inset;
+  -o-box-shadow: #304e5f 0 0.08em 0.2em 1px inset;
+  box-shadow: #304e5f 0 0.08em 0.2em 1px inset;
+}
+.simple_form .button:active, .simple_form .button:active:visited {
+  color: white;
+}
+
+body {
+  font-size: 12px;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  line-height: 1.231;
+  *font-size: small;
+  color: #222;
+}
+
+p {
+  margin: 0 0 1.5em;
+}
+
+blockquote {
+  margin: 1.5em;
+  color: #666;
+  font-style: italic;
+}
+
+select, input, textarea, button {
+  font: 99% "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+pre, code, kbd, samp {
+  font-family: monospace, sans-serif;
+}
+
+small {
+  font-size: 85%;
+}
+
+strong, b, th, dfn {
+  font-weight: bold;
+}
+
+em, i {
+  font-style: italic;
+}
+
+html {
+  overflow-y: scroll;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  outline: none;
+  text-decoration: underline;
+}
+
+ul, ol {
+  margin-left: 2em;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+abbr,
+acronym {
+  border-bottom: 1px dotted #666;
+}
+
+address {
+  margin: 0 0 1.5em;
+  font-style: italic;
+}
+
+del {
+  color: #666;
+}
+
+nav ul, nav li {
+  margin: 0;
+  list-style: none;
+  list-style-image: none;
+}
+
+dl {
+  margin: 0 0 1.5em 0;
+}
+
+dl dt {
+  font-weight: bold;
+}
+
+dd {
+  margin-left: 1.5em;
+}
+
+td {
+  vertical-align: top;
+}
+
+sub, sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+}
+
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+pre {
+  white-space: pre;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  padding: 15px;
+}
+
+table {
+  margin-bottom: 1.4em;
+  width: 100%;
+}
+
+th {
+  font-weight: bold;
+}
+
+th, td, caption {
+  padding: 4px 10px 4px 5px;
+}
+
+tfoot {
+  font-style: italic;
+}
+
+caption {
+  background: #eee;
+}
+
+textarea {
+  overflow: auto;
+}
+
+.ie6 legend, .ie7 legend {
+  margin-left: -7px;
+}
+
+input[type="radio"] {
+  vertical-align: text-bottom;
+}
+
+input[type="checkbox"] {
+  vertical-align: bottom;
+}
+
+.ie7 input[type="checkbox"] {
+  vertical-align: baseline;
+}
+
+.ie6 input {
+  vertical-align: text-bottom;
+}
+
+label, input[type="button"], input[type="submit"], input[type="image"], button {
+  cursor: pointer;
+}
+
+button, input, select, textarea {
+  margin: 0;
+}
+
+input:invalid, textarea:invalid {
+  border-radius: 1px;
+  -moz-box-shadow: 0px 0px 5px red;
+  -webkit-box-shadow: 0px 0px 5px red;
+  box-shadow: 0px 0px 5px red;
+}
+
+.no-boxshadow input:invalid, .no-boxshadow textarea:invalid {
+  background-color: #f0dddd;
+}
+
+::-moz-selection {
+  background: #2e7ca8;
+  color: #fff;
+  text-shadow: none;
+}
+
+::selection {
+  background: #2e7ca8;
+  color: #fff;
+  text-shadow: none;
+}
+
+a:link {
+  -webkit-tap-highlight-color: #FF5E99;
+}
+
+button {
+  width: auto;
+  overflow: visible;
+}
+
+.ie7 img {
+  -ms-interpolation-mode: bicubic;
+}
+
+body, select, input, textarea {
+  color: #444;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+  font-weight: bold;
+}
+
+a, a:active, a:visited {
+  color: #607890;
+}
+
+a:hover {
+  color: #036;
+}

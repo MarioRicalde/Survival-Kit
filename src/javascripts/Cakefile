@@ -1,0 +1,276 @@
+#
+# Project Configuration
+#
+prod_coffee_files = [
+  'intro'
+  'core'
+  'outro'
+]
+
+javascript_files = [
+  'vendor/modernizr-2.0.min.js'
+  'vendor/jquery-1.6.1.min.js'
+  'vendor/autoresize.jquery.js'
+  'plugins'
+]
+
+minify_options = {
+  merge: true,
+	minify: true,
+	remove_original: true
+}
+
+
+prod_src_dir               = 'src/javascripts'
+test_src_dir               = 'src/javascripts/test'
+
+prod_output_dir            = 'javascripts'
+test_output_dir            = 'javascripts'
+
+# File name of the compiled js files.
+prod_output_filename       = 'app'
+prod_output_file           = "#{prod_output_dir}/#{prod_output_filename}.js"
+prod_output_min_file       = "#{prod_output_dir}/#{prod_output_filename}.min.js"
+
+javascript_output_filename = 'vendor'
+javascript_output_file     = "#{prod_output_dir}/#{javascript_output_filename}.js"
+javascript_min_file        = "#{prod_output_dir}/#{javascript_output_filename}.min.js"
+
+merge_filename             = 'merge'
+merge_output_file          = "#{prod_output_dir}/#{merge_filename}.js"
+merge_min_file             = "#{prod_output_dir}/#{merge_filename}.min.js"
+
+
+# JS files first, then production.
+merge_order                = [javascript_output_file, prod_output_file]
+
+# Options for the compile command.
+prod_coffee_file           = "#{prod_src_dir}/#{prod_output_filename}.coffee"
+prod_coffee_options        = "--bare --output #{prod_output_dir} --compile #{prod_coffee_file}"
+test_coffee_options        = "--output #{test_output_dir}"
+
+
+# A switch that defines when merging can occur. if merging_switch % 2 == 0 do the merge.
+merging_switch = 0;
+
+#
+# The cake file.
+# Based on krismolendyke's work.
+# Heavily Modified by Mario "Kuroir" Ricalde
+# TODO: GOLF on this thing, hack solution for now.
+#
+
+fs     = require 'fs'
+{exec} = require 'child_process'
+util   = require 'util'
+uglify = require './node_modules/uglify-js'
+
+task 'watch:all', 'Watch production and test CoffeeScript', ->
+  invoke 'watch:test'
+  invoke 'watch'
+  
+task 'build:all', 'Build production and test CoffeeScript', ->
+  invoke 'build:test'
+  invoke 'build:coffee'
+  invoke 'build:javascript'
+
+task 'build', 'Build CoffeeScript and Javascripts', ->
+  invoke 'build:coffee'
+  invoke 'build:javascript'
+
+task 'watch', 'Watch prod source files and build changes', ->
+  invoke 'build'
+  util.log "Watching for changes in #{prod_src_dir}"
+
+  # Coffeescript Files.
+  for file in prod_coffee_files then do (file) ->
+    c_file = resolve_name(file)
+    fs.watchFile "#{prod_src_dir}/#{c_file}", interval: 1,  (curr, prev) ->
+      if +curr.mtime isnt +prev.mtime
+        util.log "Saw change in #{prod_src_dir}/#{c_file}"
+        invoke 'build'
+  
+  # JavaScript Files.      
+  for file in javascript_files then do (file) ->
+    c_file = resolve_name(file, 'js')
+    fs.watchFile "#{prod_src_dir}/#{c_file}", interval: 1,  (curr, prev) ->
+      if +curr.mtime isnt +prev.mtime
+        util.log "Saw change in #{prod_src_dir}/#{c_file}"
+        invoke 'build'
+
+# CoffeeScript Files.
+task 'build:coffee', 'Build a single JavaScript file from prod coffeescript files', ->
+  util.log "Building #{prod_output_file}"
+  appContents = new Array remaining = prod_coffee_files.length
+  util.log "Appending #{prod_coffee_files.length} files to #{prod_coffee_file}"
+  
+  for file, index in prod_coffee_files then do (file, index) ->
+    c_file = resolve_name(file)
+    fs.readFile "#{prod_src_dir}/#{c_file}"
+          , 'utf8'
+          , (err, fileContents) ->
+      handleError(err) if err
+      
+      appContents[index] = fileContents
+      util.log "[#{index + 1}] #{c_file}"
+      process() if --remaining is 0
+
+  process = ->
+    fs.writeFile prod_coffee_file
+           , appContents.join('\n\n')
+           , 'utf8'
+           , (err) ->
+      handleError(err) if err
+      
+      exec "coffee #{prod_coffee_options}", (err, stdout, stderr) ->
+        handleError(err) if err
+        message = "Compiled #{prod_output_file}"
+        util.log message
+        displayNotification message
+        fs.unlink prod_coffee_file, (err) -> handleError(err) if err
+
+        if minify_options.merge
+          merging_switch++
+          if merging_switch % 2 == 0
+            invoke 'merge'
+        else
+          uglify_process(prod_output_file, prod_output_min_file) if minify_options.minify
+      
+# Javascript Files  
+task 'build:javascript', 'Build a single JavaScript file from prod javascript files', ->
+  util.log "Building #{javascript_output_file}"
+  appContents = new Array remaining = javascript_files.length
+  util.log "Appending #{javascript_files.length} files to #{javascript_output_file}"
+
+  for file, index in javascript_files then do (file, index) ->
+    c_file = resolve_name(file, 'js')
+    fs.readFile "#{prod_src_dir}/#{c_file}"
+          , 'utf8'
+          , (err, fileContents) ->
+      handleError(err) if err
+
+      appContents[index] = fileContents
+      util.log "[#{index + 1}] #{c_file}"
+      process() if --remaining is 0
+
+  process = ->
+    fs.writeFile javascript_output_file
+           , appContents.join('\n\n')
+           , 'utf8'
+           , (err) ->
+      handleError(err) if err
+
+      message = "Compiled #{javascript_output_file}"
+      util.log message
+      displayNotification message
+      # fs.unlink prod_coffee_file, (err) -> handleError(err) if err
+      if minify_options.merge
+        merging_switch++
+        if merging_switch % 2 == 0
+          invoke 'merge'
+      else
+        uglify_process(javascript_output_file, javascript_min_file) if minify_options.minify
+
+task 'merge', 'Build a single JavaScript file from prod javascript files', ->
+  # Reset the switch.
+  merging_switch = 0
+  
+  util.log "[MERGE] to File #{prod_output_file}"
+  appContents = new Array
+  remaining = merge_order.length
+  for file, index in merge_order then do (file, index) ->
+    c_file = resolve_name(file)
+    fs.readFile "#{c_file}"
+          , 'utf8'
+          , (err, fileContents) ->
+      handleError(err) if err
+      
+      appContents[index] = fileContents
+      util.log "[#{index + 1}] #{c_file}"
+      process() if --remaining is 0
+
+  process = ->
+    fs.writeFile merge_output_file
+           , appContents.join('\n\n')
+           , 'utf8'
+           , (err) ->
+      handleError(err) if err
+      
+      uglify_process(merge_output_file, merge_min_file) if minify_options.minify
+      
+
+task 'watch:test', 'Watch test specs and build changes', ->
+  invoke 'build:test'
+  util.log "Watching for changes in #{test_src_dir}"
+  
+  fs.readdir test_src_dir, (err, files) ->
+    handleError(err) if err
+    for file in files then do (file) ->
+      fs.watchFile "#{test_src_dir}/#{file}", (curr, prev) ->
+        if +curr.mtime isnt +prev.mtime
+          coffee test_coffee_options, "#{test_src_dir}/#{file}"
+
+task 'build:test', 'Build individual test specs', ->
+  util.log 'Building test specs'
+  fs.readdir test_src_dir, (err, files) ->
+    handleError(err) if err
+    for file in files then do (file) -> 
+      coffee test_coffee_options, "#{test_src_dir}/#{file}"
+
+task 'uglify', 'Minify and obfuscate', (options) ->      
+  if options.type == 'coffee'
+    uglify_process(prod_output_file, prod_output_min_file)
+  else if options.type == 'js'
+    uglify_process(javascript_output_file, javascript_min_file)
+  else
+    uglify_process(prod_output_file, prod_output_min_file)
+    uglify_process(javascript_output_file, javascript_min_file)
+
+resolve_name = (file, type = 'coffee') ->
+	if file.match(/\./)
+		file
+	else
+	 	"#{file}.#{type}"
+
+uglify_process = (file, min_file) ->
+  jsp = uglify.parser
+  pro = uglify.uglify
+  fs.readFile file, 'utf8', (err, fileContents) ->
+    ast = jsp.parse fileContents  # parse code and get the initial AST
+    ast = pro.ast_mangle ast # get a new AST with mangled names
+    ast = pro.ast_squeeze ast # get an AST with compression optimizations
+    final_code = pro.gen_code ast # compressed code here
+
+    fs.writeFile min_file, final_code
+
+    # if minify_options.remove_original
+    #   fs.unlink file, (err) -> handleError(err) if err
+
+    message = "Uglified #{file}"
+    util.log message
+    displayNotification message
+    
+    files = [merge_output_file, javascript_output_file, prod_output_file]
+    if minify_options.remove_original
+      if minify_options.merge
+        files = [merge_output_file, javascript_output_file, prod_output_file]
+        for file in files then do (file) ->
+          fs.unlink file, (err) -> handleError(err) if err
+      else
+        fs.unlink file, (err) -> handleError(err) if err
+
+coffee = (options = "", file) ->
+  util.log "Compiling #{file}"
+  exec "coffee #{options} --compile #{file}", (err, stdout, stderr) -> 
+    handleError(err) if err
+    displayNotification "Compiled #{file}"
+
+handleError = (error) -> 
+  util.log error
+  displayNotification error
+    
+displayNotification = (message = '') -> 
+  options =
+    title: 'CoffeeScript'
+    image: 'lib/CoffeeScript.png'
+  try require('./node_modules/growl').notify message, options
