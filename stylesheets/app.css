@@ -507,3 +507,28 @@ a, a:active, a:visited {
 a:hover {
   color: #036;
 }
+
+html, body {
+  height: 100%;
+}
+
+#container {
+  clear: both;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom: -54px;
+}
+#container #footer-spacing {
+  height: 54px;
+}
+
+footer {
+  clear: both;
+  position: relative;
+  height: 54px;
+}
+
+body {
+  background: #E3E3E3;
+}

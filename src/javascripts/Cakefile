@@ -2,17 +2,12 @@
 # Project Configuration
 #
 prod_coffee_files = [
-  'intro'
   'core'
-  'outro'
 ]
 
 javascript_files = [
-  'vendor/modernizr-2.0.min.js'
-  'vendor/jquery-1.6.1.min.js'
-  'vendor/autoresize.jquery.js'
-  'plugins'
-]
+  'modernizr-2.0.min.js'
+].map (e) -> 'vendor/' + String(e)
 
 minify_options = {
   merge: true,

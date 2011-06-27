@@ -4,9 +4,11 @@
 // Dependencies
 // ----------------------------------------
 @import "compass";
+@import "compass/layout/sticky-footer";
 @import "vendor/boilerplate/reset";
 @import "vendor/survival-kit/loader";
 @import "vendor/fancy-buttons/fancy-buttons";
+
 
 // Project Variables
 // ----------------------------------------
@@ -52,10 +54,12 @@ $my-site-variables         : true;
 // Global Classes for extension.
 // ----------------------------------------
 // Here you can store classes which are used as extensions across all the project, like sprites and whatnot.
+.ext-my-class {}
+
 
 // The Partials
 // ----------------------------------------
-
+// Base styles tanks to html5boilerplate. This one uses the Hooks defined before.
 @import "vendor/boilerplate/styles";
 
 // -- Shared Partials
@@ -67,9 +71,7 @@ $my-site-variables         : true;
 	@import "app/shared/contents";
 	// Internet Explorer Custom CSS go here.
 	@import "app/shared/ie";
-//	@import "app/shared/handheld";
-//	@import "app/shared/print";
 
 // -- Layouts Partials
-// The most general one goes first
-	@import "app/layouts/application"
+	// The most general one goes first
+	@import "app/layouts/application";

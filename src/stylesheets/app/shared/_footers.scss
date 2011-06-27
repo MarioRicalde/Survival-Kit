@@ -1,2 +1,4 @@
 // Footers
 // ----------------------------------------
+
+@include sticky-footer(54px, "#container", "#footer-spacing", "footer");
