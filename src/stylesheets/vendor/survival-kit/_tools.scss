@@ -1,59 +1,57 @@
 // Survival ✚ Kit
+$container-width           : 1000px !default;
 
-// Debug Variable.
-$debug: false !default;
-
-// 
 // Shortcut to remove margin an padding.
 // Used on several @mixins.
-// 
-.no-mp {
+@mixin no-mp {
   margin:0;
   padding:0;
 }
 
 // 
-// @TODO: Add docs to no-mp!
-// 
-@mixin no-mp {
-  @extend .no-mp;
-}
-
-// 
 // Center a Element.
 // 
-@mixin center-container($width: 1000px, $vertical-margin:0) {
-  width: $width;
+@mixin center-container($container-width, $vertical-margin:0) {
+  width: $container-width;
   margin:$vertical-margin auto;
 }
 
-// 
 // Inline Block CrossBrowser.
 // Disregards FF2 and IE6
-// 
 @mixin inline-block {
   display: inline-block;
   zoom: 1; // ie7
 }
 
-// 
 // Shortcut to set absolute positioning.
-//
-@mixin position($top, $right:0, $bottom:0, $left:0) {
+@mixin pos($top, $right:0, $bottom:0, $left:0, $debug: false) {
   position:absolute;
+	@if $debug { @include debug($debug); }
   @if "#{$top}" != "0" { top: $top; }
   @if "#{$right}" != "0" { right: $right; }
   @if "#{$bottom}" != "0" { bottom: $bottom; }
   @if "#{$left}" != "0" { left: $left; }
 }
 
+// Center a absolute element horizontally; optional offset.
+@mixin pos-x-center($width, $offset:0) {
+  width:$width;
+  margin-left:$offset - ( $width / 2 );
+	@include pos(0, 50%, 0, 50%);
+}
+
 // Set a debug variable.
 @mixin debug($color:red) {
-  @if $debug == true {
+  @if $debug != false {
+		@if $color == true { $color:red; }
     background: rgba($color, 0.2); // incompatible with IE. 
   }
 }
 
+// Class available to center container to 1000px
+.w {
+	@include center-container($container-width);
+} //.w
 
 // Crossbrowser linear gradient.
 // Compatible Browsers: FF3.6+ Saf4+ Chrome IE6-IE9
@@ -69,3 +67,78 @@ $debug: false !default;
   background-image: linear-gradient(top, $top, $bottom);
             filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$top}', EndColorStr='#{$bottom}'); // IE6–IE9
 }
+
+// Mixin that allows you to set the size of the box to a fixed width/height
+// taking into consideration the padding and borders for you.
+// 
+// Part of Survival ✚ Kit
+// 
+// Examples:
+//   @include box-size(100px, 100px, 10px, 5px solid red); 
+//   Will render a 100x100.
+//
+// $width: Pixel value for width
+// $height: Pixel value for height
+// $padding: Padding accepts: 1px or 1px 2px or 1px 2px 3px 4px
+// $border: Border, accepts 1px solid #000 or 1px or 1px 2px or 1px 2px 3px 4px
+// 					When passing a border declaration (1px solid #000) it'll add the CSS for you.
+@mixin box-size($width, $height, $padding: none, $border:none) {
+	@function to-list($attr) {
+		@return $attr $attr $attr $attr;
+	}
+	// Prepare the borders, accept the following:
+	//   1px solid #000 or 1px or 1px 2px or 1px 2px 3px 4px
+	@mixin prepare-border() {
+		@if $border == none {
+			$border:0;
+		}
+		$border-len: length($border);
+	  // Standardize padding to a list with 4 items.
+		@if $border-len == 3 {
+			border:$border;
+			$bw: nth($border, 1);
+			$border: to-list(nth($border, 1));
+		} @else if $border-len == 1 {
+			$border: to-list($border);
+		} @else if $border-len == 2 {
+			$border: join($border, $border);
+		}
+	}
+	
+	// Prepare padding, accept the following:
+	//   1px or 1px 2px or 1px 2px 3px 4px
+	@mixin prepare-padding() {
+		@if $padding == none {
+			$padding:0;
+		} @else {
+			padding:$padding;
+		}
+		
+	  // Standardize padding to a list with 4 items.
+		$padding-len: length($padding);
+		@if $padding-len == 1 {
+			$padding: to-list($padding);
+		} @else if $padding-len == 2 {
+			$padding: join($padding, $padding);
+		}
+	}
+	
+	@function width($value) {
+		@return $value - (nth($padding, 2) + nth($padding, 4)) - (nth($border, 2) + nth($border, 4));
+	}
+	
+	@function height($value) {
+		@return $value - (nth($padding, 1) + nth($padding, 3)) - (nth($border, 1) + nth($border, 3));
+	}
+	
+	// Do the magic
+	@include prepare-border;
+	@include prepare-padding;
+	@if $width != auto {
+		width: width($width);
+	}
+	@if $height != auto {
+		height: height($height);
+	}
+} // @mixin box-size
+

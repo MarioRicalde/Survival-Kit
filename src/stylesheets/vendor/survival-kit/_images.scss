@@ -51,6 +51,17 @@
   } //a
 }
 
+// An area which should be clickable. It's meant to be a low level mixin, you should
+// use the alternatuves.
+// - debugging enables a background color to know the position.
+@mixin link-area($width, $height, $debugging: false) {
+  width:$width;
+  height:$height;
+  @if $debugging {
+    @include debug($debugging);
+  }
+  @extend .ext-hide-text;
+}
 
 // Mixin for quickly replacing images for any given element.
 // @var $image string path to the image
@@ -98,17 +109,6 @@
   }
 }
 
-// An area which should be clickable. It's meant to be a low level mixin, you should
-// use the alternatuves.
-// - debugging enables a background color to know the position.
-@mixin link-area($width, $height, $debugging: false) {
-  width:$width;
-  height:$height;
-  @if $debugging {
-    @include debug;
-  }
-  @extend .ext-hide-text;
-}
 
 // Common styles needed by our Image Mixins.
 // Depends on Compass.

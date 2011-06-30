@@ -14,14 +14,14 @@
 //
 // For more information see the table found at http://developer.yahoo.com/yui/3/cssfonts/#fontsize
 // From: compass-html5-boilerplate gem.
-@mixin font-size($size, $base-font-size: $base-font-size) {
-  font-size: ceil(percentage($size / $base-font-size));
+@function size($size, $base-font-size: $base-font-size) {
+  @return ceil(percentage($size / $base-font-size));
 }
 
 
 // Calculate margin and line height according to the given size.
 @mixin header-size($size) {
-  @include font-size($size);
+  font-size: size($size);
   line-height: $size;
   margin:($size / 3) 0;
 }

@@ -165,7 +165,6 @@
   $vertical-spacing       : 5px;
   $horizontal-spacing     : 8px;
   $vertical-field-padding : $vertical-spacing * 2;
-  $debug                  : false;
   .simple_form {
     @include debug;
     padding:$vertical-spacing 0;
@@ -206,7 +205,7 @@
       .hint {
         @extend .ext-sfr;
         margin-left:$horizontal-spacing;
-        @include font-size(12px);
+        font-size: size(12px);
         color: #6E6E6E;
       } //.hint
     } //div.input

@@ -16,8 +16,8 @@
     $box-shadow,
     $box-shadow-hover,
     $box-shadow-active,
-    $border-light,
-    $border-shadow,
+    $border-left,
+    $border-right,
     $padding,
     $margin,
     $border-radius,
@@ -26,16 +26,18 @@
     $tab-space // Sets a tabbing space. 
   ) {
   @if $bg == none { $bg:transparent;}
+	@if $bg-active == auto { $bg-active:$bg-hover; }
+	@if $active-color == auto { $active-color:$hover-color; }
   
   // Border Calculation
   // ----------------------------------------
   // Check if borders are set to anything but none / auto.
-  @if $border-light != none and $border-shadow != none and $border-light != auto and $border-shadow != auto{
+  @if $border-left != none and $border-right != none and $border-left != auto and $border-right != auto {
     // Borders where explicitly set.
-    @include navigation-borders($border-light, $border-shadow);
-  } @else if $border-light == auto and $border-shadow == auto and $bg != transparent{
+    @include _sk-nav-borders($border-left, $border-right);
+  } @else if $border-left == auto and $border-right == auto and $bg != transparent{
     // Borders calculated magically.
-    @include navigation-borders(lighten($bg, 10%), darken($bg, 10%));
+    @include _sk-nav-borders(lighten($bg, 10%), darken($bg, 10%));
   }
   
   height:$height; // instead of clearfix, to keep shadows alive.
@@ -85,12 +87,12 @@
     } //&, &:visited
     
     &:hover{
-      @include bg-effects($hover-color, $bg-hover, $text-shadow, $box-shadow-hover, $bg-hover);
+      @include _sk-nav-effects($hover-color, $bg-hover, $text-shadow, $box-shadow-hover, $bg-hover);
       text-decoration:none;
     }
 
     &.active {
-      @include bg-effects($active-color, $bg-active, $text-shadow, $box-shadow-active, $bg-hover);
+      @include _sk-nav-effects($active-color, $bg-active, $text-shadow, $box-shadow-active, $bg-hover);
       // Add tab space.
       @if $tab-space != 0 {
         height:$height + $tab-space;
@@ -99,18 +101,17 @@
   } //a
 }
 
-//
 // Mixin used to generate Background effects by the horizontal-navigation mixin.
-// 
-@mixin bg-effects($color, $bg, $text-shadow, $box-shadow, $bg-hover) {
-  color:$color;
+@mixin _sk-nav-effects($color, $bg, $text-shadow, $box-shadow, $bg-hover) {
+	@if $color != auto {
+	  color:$color;
+	}
   @if $bg != transparent {
     @if $bg-hover == auto {
        background:darken($bg,3%); 
     } @else {
       background:$bg;
     }
-    
     @if $box-shadow != none{
       @include box-shadow($box-shadow);
     }
@@ -121,14 +122,12 @@
   }
 }
 
-// 
 // Low level mixin.
 // Invoked by other mixins.
 // 
 // @var $left the left border.
 // @var $right the right border
-// 
-@mixin navigation-borders($left, $right) {
+@mixin _sk-nav-borders($left, $right) {
   li:first-child, li.first {
     border-left:1px solid $right;
   }// li:first-child
