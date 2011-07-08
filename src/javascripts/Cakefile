@@ -7,6 +7,7 @@ prod_coffee_files = [
 
 javascript_files = [
   'modernizr-2.0.min.js'
+  'jquery.condom.js'
 ].map (e) -> 'vendor/' + String(e)
 
 minify_options = {
