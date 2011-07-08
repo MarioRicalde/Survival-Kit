@@ -23,7 +23,7 @@
 @mixin header-size($size) {
   font-size: size($size);
   line-height: $size;
-  margin:($size / 3) 0;
+  margin:($size / 2.2) 0;
 }
 
 // Calculate the Header based on the H1 Max size.
@@ -32,6 +32,6 @@
   @for $i from 1 through 6 {
     h#{$i} {
       @include header-size($max - ($per * $i) );
-    } // h#{$i}
-  } // @for $i from 1 through 6
+    }
+  }
 }

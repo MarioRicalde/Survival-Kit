@@ -1,5 +1,19 @@
 // Survival ✚ Kit
 $container-width           : 1000px !default;
+$compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9 !default;
+
+// Function to know if we're in compatibility mode, if $version is set it'll return if there's  a match for that browser.
+@function in-compatibility-mode($version: false) {
+  @if $compatibility-mode {
+    @if $version {
+      @return index(nth($compatibility-mode, 2), $version);
+    } @else {
+      @return nth($compatibility-mode, 1);
+    }
+  } @else {
+    @return false;
+  }
+}
 
 // Shortcut to remove margin an padding.
 // Used on several @mixins.
@@ -8,36 +22,50 @@ $container-width           : 1000px !default;
   padding:0;
 }
 
-// 
-// Center a Element.
-// 
-@mixin center-container($container-width, $vertical-margin:0) {
-  width: $container-width;
+// Center an element.
+@mixin center-container($container-width, $vertical-margin:0, $padding:0) {
   margin:$vertical-margin auto;
+  @if $padding == 0 {
+    width:$container-width;
+  } @else {
+    @include box-size($container-width, auto, $padding);
+  }
 }
 
 // Inline Block CrossBrowser.
 // Disregards FF2 and IE6
 @mixin inline-block {
   display: inline-block;
-  zoom: 1; // ie7
+  @if in-compatibility-mode(ie7) {
+    zoom: 1;
+    *display:inline;
+  }
 }
 
 // Shortcut to set absolute positioning.
-@mixin pos($top, $right:0, $bottom:0, $left:0, $debug: false) {
+@mixin pos($pos, $debug: false) {
+  @if length($pos) == 1 {
+    $pos: $pos 0 0 0;
+  }
+  @if length($pos) == 2 {
+    $pos: nth($pos,1) nth($pos,2) 0 0;
+  }
+  @if length($pos) == 3 {
+    $pos: nth($pos,1) nth($pos,2) nth($pos, 3) 0;
+  }
   position:absolute;
+  @if "#{nth($pos, 1)}" != "0" { top: nth($pos, 1); }
+  @if "#{nth($pos, 2)}" != "0" { right: nth($pos, 2); }
+  @if "#{nth($pos, 3)}" != "0" { bottom: nth($pos, 3); }
+  @if "#{nth($pos, 4)}" != "0" { left: nth($pos, 4); }
 	@if $debug { @include debug($debug); }
-  @if "#{$top}" != "0" { top: $top; }
-  @if "#{$right}" != "0" { right: $right; }
-  @if "#{$bottom}" != "0" { bottom: $bottom; }
-  @if "#{$left}" != "0" { left: $left; }
 }
 
 // Center a absolute element horizontally; optional offset.
 @mixin pos-x-center($width, $offset:0) {
   width:$width;
   margin-left:$offset - ( $width / 2 );
-	@include pos(0, 50%, 0, 50%);
+	@include pos(0 50% 0 50%);
 }
 
 // Set a debug variable.
@@ -51,7 +79,7 @@ $container-width           : 1000px !default;
 // Class available to center container to 1000px
 .w {
 	@include center-container($container-width);
-} //.w
+}
 
 // Crossbrowser linear gradient.
 // Compatible Browsers: FF3.6+ Saf4+ Chrome IE6-IE9
@@ -71,8 +99,6 @@ $container-width           : 1000px !default;
 // Mixin that allows you to set the size of the box to a fixed width/height
 // taking into consideration the padding and borders for you.
 // 
-// Part of Survival ✚ Kit
-// 
 // Examples:
 //   @include box-size(100px, 100px, 10px, 5px solid red); 
 //   Will render a 100x100.
@@ -82,13 +108,10 @@ $container-width           : 1000px !default;
 // $padding: Padding accepts: 1px or 1px 2px or 1px 2px 3px 4px
 // $border: Border, accepts 1px solid #000 or 1px or 1px 2px or 1px 2px 3px 4px
 // 					When passing a border declaration (1px solid #000) it'll add the CSS for you.
-@mixin box-size($width, $height, $padding: none, $border:none) {
-	@function to-list($attr) {
-		@return $attr $attr $attr $attr;
-	}
+@mixin box-size($width, $height:auto, $padding: none, $border:none) {
 	// Prepare the borders, accept the following:
 	//   1px solid #000 or 1px or 1px 2px or 1px 2px 3px 4px
-	@mixin prepare-border() {
+	@if true {
 		@if $border == none {
 			$border:0;
 		}
@@ -97,9 +120,9 @@ $container-width           : 1000px !default;
 		@if $border-len == 3 {
 			border:$border;
 			$bw: nth($border, 1);
-			$border: to-list(nth($border, 1));
+			$border: $bw $bw $bw $bw;
 		} @else if $border-len == 1 {
-			$border: to-list($border);
+			$border: $border $border $border $border;
 		} @else if $border-len == 2 {
 			$border: join($border, $border);
 		}
@@ -107,7 +130,7 @@ $container-width           : 1000px !default;
 	
 	// Prepare padding, accept the following:
 	//   1px or 1px 2px or 1px 2px 3px 4px
-	@mixin prepare-padding() {
+	@if true {
 		@if $padding == none {
 			$padding:0;
 		} @else {
@@ -117,28 +140,37 @@ $container-width           : 1000px !default;
 	  // Standardize padding to a list with 4 items.
 		$padding-len: length($padding);
 		@if $padding-len == 1 {
-			$padding: to-list($padding);
+			$padding: $padding $padding $padding $padding;
 		} @else if $padding-len == 2 {
 			$padding: join($padding, $padding);
 		}
 	}
 	
-	@function width($value) {
-		@return $value - (nth($padding, 2) + nth($padding, 4)) - (nth($border, 2) + nth($border, 4));
-	}
-	
-	@function height($value) {
-		@return $value - (nth($padding, 1) + nth($padding, 3)) - (nth($border, 1) + nth($border, 3));
-	}
-	
-	// Do the magic
-	@include prepare-border;
-	@include prepare-padding;
 	@if $width != auto {
-		width: width($width);
+		width: $width - (nth($padding, 2) + nth($padding, 4)) - (nth($border, 2) + nth($border, 4));
 	}
 	@if $height != auto {
-		height: height($height);
+		height: $height - (nth($padding, 1) + nth($padding, 3)) - (nth($border, 1) + nth($border, 3));
 	}
-} // @mixin box-size
+}
 
+// Float an element with a given width and a direction. Third parameter allows easy debugging.
+// Yes, we override Compass :(
+@mixin float($side, $size:auto, $debug-color:false) {
+  @if $size != auto {
+    @if length($size) == 1 {
+      width:$size;
+    } @else {
+      height:nth($size, 2);
+      width:nth($size, 1);        
+    }
+    
+  }
+  @if in-compatibility-mode(ie6) {
+    display:inline;
+  }
+  float: $side;
+  @if $debug-color and $debug {
+    @include debug($debug-color);
+  }
+}

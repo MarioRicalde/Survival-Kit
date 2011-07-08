@@ -36,7 +36,7 @@
   height: image-height($image);
   a {
     @include image-link($image, $inline);
-  } //a
+  }
 }
 
 // Area for a header link, meant to be used when it inherits a background image.
@@ -48,7 +48,7 @@
   height:$height;
   a {
     @include link-area($width, $height, $debugging);
-  } //a
+  }
 }
 
 // An area which should be clickable. It's meant to be a low level mixin, you should
@@ -117,4 +117,4 @@
   display:block;
   direction: ltr; 
   outline:none;
-} // .ext-hide-text
+}

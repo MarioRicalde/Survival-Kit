@@ -49,7 +49,7 @@
     display:block;
     float:left;  // this can make it inline or block level.
     line-height:$height;
-  } //li
+  }
   
   
   a {
@@ -58,6 +58,7 @@
     margin:$margin;
     font-size:$font-size;
     text-decoration:none;
+    color:$color;
     
     @if $bg != transparent {
       background:$bg;
@@ -82,9 +83,6 @@
     
     // States
     // ----------------------------------------
-    &:visited {
-      color:$color;
-    } //&, &:visited
     
     &:hover{
       @include _sk-nav-effects($hover-color, $bg-hover, $text-shadow, $box-shadow-hover, $bg-hover);
@@ -98,7 +96,7 @@
         height:$height + $tab-space;
       }
     }
-  } //a
+  }
 }
 
 // Mixin used to generate Background effects by the horizontal-navigation mixin.
@@ -133,7 +131,7 @@
   }// li:first-child
   li:last-child, li.last {
     border-right:1px solid $left;
-  } //li:last-child
+  }
   a {
     border:{
       left: 1px solid $left;
@@ -144,12 +142,12 @@
         right:1px solid transparent;
         left:1px solid transparent;
       };
-    } //&.active
+    }
     &:hover {
       border:{
         right:1px solid transparent;
         left:1px solid transparent;
       };
     }
-  } //a
+  }
 }
