@@ -12,7 +12,7 @@
 
 // Project Variables
 // ----------------------------------------
-$debug                     : true;
+$debug                     : false;
 $base-font-family          : "Helvetica Neue", Arial, Helvetica, sans-serif;
 $base-font-size            : 12px;
 $base-line-height          : 1.231;
@@ -23,10 +23,12 @@ $selected-font-color       : #fff;
 $selected-background-color : #ff5e99;
 $list-left-margin          : 2em;
 $selection-color           : #2E7CA8;
+$container-width           : 1000px; // The max width of the container.
+$compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
+
 
 // ----------------------------------------
 
-$my-site-variables         : true;
 
 // Hooks
 // ----------------------------------------
@@ -42,13 +44,20 @@ $my-site-variables         : true;
   font-weight:bold;
 }
 
+// The default fancy button, used across the SK.
+@mixin sk-fancy-button-default {
+  @include fancy-button(#E12100, size(14px));
+  margin:10px 0;
+  text-transform:uppercase;
+}
+
 
 // Global Styling
 // ----------------------------------------
 // Calculate all H# Tags.
 @include htags-sizes($base-font-size + 26px);
 // Add Styling for Simple_Forms.
-@include simple-forms;
+@include simple-forms();
 
 
 // Global Classes for extension.
@@ -75,3 +84,4 @@ $my-site-variables         : true;
 // -- Layouts Partials
 	// The most general one goes first
 	@import "app/layouts/application";
+
