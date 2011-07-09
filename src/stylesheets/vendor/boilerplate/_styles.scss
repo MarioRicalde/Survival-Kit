@@ -100,8 +100,8 @@ pre {
 //  
 table       { margin-bottom: 1.4em; width:100%; }
 th          { font-weight: bold; }
-//thead th    { background: #c3d9ff; }
-th,td,caption { padding: 4px 10px 4px 5px; }
+th,td,caption { padding: 4px 10px 4px 5px; text-align: left; }
+
 // 
 // You can zebra-stripe your tables in outdated browsers by adding 
 // the class "even" to every other table row. 
@@ -117,7 +117,7 @@ caption     { background: #eee; }
 // FORMS
 // ----------------------------------------
 
-textarea { overflow: auto; } // www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/
+textarea { overflow: auto; }
 
 .ie6 legend, .ie7 legend { margin-left: -7px; } 
 
