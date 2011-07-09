@@ -169,18 +169,24 @@
 // Forms Styles (Survival Kit)
 // This styles are meant to be used with Simple_Forms (Rails)
 //
-@mixin simple-forms($selector:"simple_form") {
-  $input-width:300px;
+@mixin simple-forms($selector : "simple_form") {
+  $input-width            : 300px;
   $input-font-size        : $base-font-size;
   $vertical-spacing       : 3px;
   $horizontal-spacing     : 3px;
   $vertical-field-padding : $vertical-spacing * 2;
+  
+  // Colors.
+  $hint-color             : #6E6E6E;
+  $input-shadow           : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
+  $input-hover-color      : #7DBEF1;
+  $input-hover-shadow     : 0 0 6px #7DBEF1;
+
   .#{$selector} {
     @include debug;
     & > .hint {
       @include debug(green);
       padding:$vertical-field-padding 0;
-      overflow:hidden;
       display:inline-block;
     }
     
@@ -212,13 +218,11 @@
 
     .input {
       @include debug(blue);
-      text-align:left;
       padding:$vertical-spacing 0;
-      overflow:hidden;
       .hint {
         @extend .ext-sfr;
         margin-left:$horizontal-spacing;
-        color: #6E6E6E;
+        color: $hint-color;
       }
     }
     
@@ -226,24 +230,27 @@
       width:$input-width + ($vertical-field-padding * 2);
       border:1px solid #CCCCCC;
       outline:none;
-      height:14px + 6px*2;
+      height:14px + 6px * 2; // @todo this needs to be generalized.
       &:focus {
-        border:1px solid #7DBEF1;
+        border:1px solid $input-hover-color;
       }
     }
     
     textarea, input[type=text], input[type=password] {
       font-size:$input-font-size;
-      // Inner shadow
-      @include box-shadow(inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2));
+      @if $input-shadow {
+        @include box-shadow($input-shadow);
+      }
       outline: 0;
       padding: $vertical-field-padding 6px;
       vertical-align:top;
       width:$input-width;
       border:1px solid #CCCCCC;
       &:focus {
-      	@include box-shadow(0 0 6px rgba(23,135,208,0.7));
-        border:1px solid #7DBEF1;
+        @if $input-hover-shadow {
+          @include box-shadow($input-hover-shadow);
+        }
+        border:1px solid $input-hover-color;
       }
     }
     
@@ -254,7 +261,13 @@
       }
     }
     
-    // errors
+    // Simple Form Button for the forms.
+    .button {
+      @include sk-fancy-button-default;
+    }
+    
+    
+    // Errors @todo: this should be in its own section.
     span.error {
       @extend .ext-sfr;
       color: #D65C5C;
@@ -276,10 +289,6 @@
       }
     }
     
-    // Simple Form Button for the forms.
-    .button {
-      @include sk-fancy-button-default;
-    }
   }
 }
 
