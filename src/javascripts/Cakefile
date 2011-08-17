@@ -8,11 +8,13 @@ prod_coffee_files = [
 javascript_files = [
   'modernizr-2.0.min.js'
   'jquery.condom.js'
+  'jquery.easy-slider-1.7.js'
+  'jquery.tmpl.js'
 ].map (e) -> 'vendor/' + String(e)
 
 minify_options = {
   merge: true,
-	minify: true,
+	minify: false,
 	remove_original: true
 }
 

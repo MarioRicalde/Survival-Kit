@@ -1,4 +1,24 @@
 // Application Layout
 // ----------------------------------------
+// TODO: This generates huge selectors..
+.application {
+	
+  #main {
+    @include debug(gray);
+    @include center-container(1000px, 0, 0 8px);
+    @include clearfix;
+  }
+  
+  $sidebar: 215px;
+  $content: 758px;
+  
+  .container {
+    & > aside {
+      @include float(left, $sidebar, green);
+    }
 
-body { background:#E3E3E3; }
+    & > .content {
+      @include float(right, $content, blue);
+    }
+  }
+}

@@ -3,6 +3,7 @@
 
 // Dependencies
 // ----------------------------------------
+@import "vendor/survival-kit/secure";
 @import "compass";
 @import "compass/layout/sticky-footer";
 @import "vendor/boilerplate/reset";
@@ -26,15 +27,16 @@ $selection-color           : #2E7CA8;
 $container-width           : 1000px; // The max width of the container.
 $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 
+// -- Project Variables Overrides ---------
 
-// ----------------------------------------
+$font-color:#455;
 
 
 // Hooks
 // ----------------------------------------
 // Mixins that are called from the Library files to add some extra styling.
 
-@mixin sk-html() { }
+@mixin sk-html() {}
 
 @mixin sk-body() {}
 
@@ -44,26 +46,26 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
   font-weight:bold;
 }
 
-// The default fancy button, used across the SK.
-@mixin sk-fancy-button-default {
-  @include fancy-button(#E12100, size(14px));
-  margin:10px 0;
-  text-transform:uppercase;
-}
-
 
 // Global Styling
 // ----------------------------------------
 // Calculate all H# Tags.
-@include htags-sizes($base-font-size + 26px);
+@include htags-sizes($base-font-size + 21px);
 // Add Styling for Simple_Forms.
 @include simple-forms();
 
 
 // Global Classes for extension.
 // ----------------------------------------
-// Here you can store classes which are used as extensions across all the project, like sprites and whatnot.
-.ext-my-class {}
+// Here you place classes which are used as extensions across all the project.
+// Prefix them with .ext-
+.ext-corners {
+  @include border-radius(4px);
+}
+
+// The default fancy button, used across the SK.
+// @TODO: Turn this into a mixin @include sk-button(small/medium/big);
+.ext-button {}
 
 
 // The Partials
@@ -72,16 +74,16 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 @import "vendor/boilerplate/styles";
 
 // -- Shared Partials
-	// Headers and related material go here.
-	@import "app/shared/headers";
-	// Footers and related material go here.
-	@import "app/shared/footers";
-	// Content and Related Material go here.
-	@import "app/shared/contents";
-	// Internet Explorer Custom CSS go here.
-	@import "app/shared/ie";
+  // Headers and related material go here.
+  @import "app/shared/headers";
+  // Footers and related material go here.
+  @import "app/shared/footers";
+  // Content and Related Material go here.
+  @import "app/shared/contents";
 
 // -- Layouts Partials
-	// The most general one goes first
-	@import "app/layouts/application";
+  // The most general one goes first
+  @import "app/layouts/application";
 
+  // Compatibility.. oh jeez.
+  @import "app/shared/ie";
