@@ -40,7 +40,7 @@
 }
 
 // Area for a header link, meant to be used when it inherits a background image.
-// This should be invoked on the H1-6 Tag and not in the link, the needed structure is:
+// This should be invoked on the H1-6 Tag and not in the link, the needed structure is:2
 //   <h1><a href=""></a></h1>
 @mixin logo-area($width, $height, $debugging: false) {
   @include no-mp;

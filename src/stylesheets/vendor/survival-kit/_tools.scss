@@ -115,6 +115,7 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9 !default;
 		@if $border == none {
 			$border:0;
 		}
+		
 		$border-len: length($border);
 	  // Standardize padding to a list with 4 items.
 		@if $border-len == 3 {
@@ -156,6 +157,7 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9 !default;
 
 // Float an element with a given width and a direction. Third parameter allows easy debugging.
 // Yes, we override Compass :(
+// @TODO: Make it use box-size and allow padding.
 @mixin float($side, $size:auto, $debug-color:false) {
   @if $size != auto {
     @if length($size) == 1 {
@@ -172,5 +174,18 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9 !default;
   float: $side;
   @if $debug-color and $debug {
     @include debug($debug-color);
+  }
+}
+
+// 
+// @TODO: Add docs to size!
+//
+@mixin size($size) {
+  @if length($size) == 2 {
+    @if "#{nth($size, 1)}" != "0" { width:nth($size, 1); }
+    @if "#{nth($size, 2)}" != "0" { height:nth($size, 2); }
+  } @else {
+    width:nth($size, 1);
+    height:nth($size, 1);
   }
 }

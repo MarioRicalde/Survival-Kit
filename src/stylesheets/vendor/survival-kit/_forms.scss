@@ -81,7 +81,7 @@
 // 
 // <form action="#" accept-charset="utf-8" class="search-box">
 //   <input type="text" class="text" value="Search..." name="q" />
-//   <input type="submit" class="button" value="s" />
+//   <input type="submit" class="button" value="" />
 // </form>
 @mixin search-box-simple($width:189px, $background: #FFFFFF, $font-size:12px) {
   // Here Begins
@@ -118,7 +118,6 @@
     cursor:pointer;
     text-indent:-99999px;
     display: block;
-    background:red;
     width:$button-width;
     height:$height;
     background:transparent image-url('vendor/survival-kit/search-icon.png') left center no-repeat;
@@ -188,6 +187,9 @@
       @include debug(green);
       padding:$vertical-field-padding 0;
       display:inline-block;
+      &.padded {
+        margin-left:$horizontal-spacing * 2;
+      }
     }
     
     p {
@@ -227,13 +229,17 @@
     }
     
     select {
-      width:$input-width + ($vertical-field-padding * 2);
       border:1px solid #CCCCCC;
       outline:none;
       height:14px + 6px * 2; // @todo this needs to be generalized.
       &:focus {
         border:1px solid $input-hover-color;
       }
+    }
+    
+    // Needs to be nested so it doesn't collide with date selects.
+    .select select {
+      width:$input-width + ($vertical-field-padding * 2);
     }
     
     textarea, input[type=text], input[type=password] {
@@ -263,7 +269,7 @@
     
     // Simple Form Button for the forms.
     .button {
-      @include sk-fancy-button-default;
+      @extend .sk-button;
     }
     
     
@@ -293,8 +299,20 @@
 }
 
 // Allows you to have different widths for different layouts.
-@mixin simple-form-width($width) {
+@mixin simple-form-width($width, $label-width:false) {
+  $input-width            : $width;
+  $horizontal-spacing     : 3px;
+  $vertical-field-padding : $horizontal-spacing * 2;
+  
   textarea, input[type=text], input[type=password] {
     width:$width;
+  }
+  select {
+    width:$input-width + ($vertical-field-padding * 2);
+  }
+  @if $label-width {
+    .input .hint {
+      width:$label-width;
+    }
   }
 }

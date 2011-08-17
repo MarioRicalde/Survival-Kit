@@ -40,18 +40,19 @@
 // Pagination Styling
 // ---------------------------------------- 
 // <div class="pagination">
-//	 <span class="previous_page disabled">← Previous</span>
-//	 <em>1</em>
-//	 <a rel="next" href="/?page=2">2</a>
-//	 <a href="/?page=3">3</a>
-//	 <a href="/?page=4">4</a>
-//	 <a class="next_page" rel="next" href="/?page=2">Next →</a>
+//   <span class="previous_page disabled">← Previous</span>
+//   <em>1</em>
+//   <a rel="next" href="/?page=2">2</a>
+//   <a href="/?page=3">3</a>
+//   <a href="/?page=4">4</a>
+//   <a class="next_page" rel="next" href="/?page=2">Next →</a>
 // </div>
 @mixin pagination() {
 	padding:20px;
 	text-align:center;
 	* {
 		padding: 3px 8px;
+	  @include border-radius(4px);
 	}
 	em {
 		font-weight:bold;
