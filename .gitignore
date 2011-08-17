@@ -17,6 +17,7 @@
 nbproject
 Thumbs.db
 
+
 # Extra
 .sass-cache
 .livereload
@@ -36,6 +37,7 @@ intermediate
 publish
 .idea
 images/
+javascripts/
 !vendor/
 
 # build script local files
