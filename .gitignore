@@ -8,6 +8,7 @@
 *.swp
 *.vi
 *~
+*.php
 
 # OS or Editor folders
 .DS_Store
@@ -21,6 +22,7 @@ Thumbs.db
 # Extra
 .sass-cache
 .livereload
+src/stylesheets/app/layouts/*
 
 # Dreamweaver added files
 _notes
@@ -37,7 +39,7 @@ intermediate
 publish
 .idea
 images/
-javascripts/
+/javascripts/
 !vendor/
 
 # build script local files
