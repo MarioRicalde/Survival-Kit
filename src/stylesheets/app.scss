@@ -5,44 +5,53 @@
 // ----------------------------------------
 @import "vendor/survival-kit/secure";
 @import "compass";
+@import "vendor/boilerplate-1.0/reset";
 @import "compass/layout/sticky-footer";
-@import "vendor/boilerplate/reset";
 @import "vendor/survival-kit/loader";
 @import "vendor/fancy-buttons/fancy-buttons";
 
 
 // Project Variables
 // ----------------------------------------
+
 $debug                     : false;
+
+// Typography
 $base-font-family          : "Helvetica Neue", Arial, Helvetica, sans-serif;
-$base-font-size            : 12px;
+$base-font-size            : 13px;
 $base-line-height          : 1.231;
-$font-color                : #444;  //looks better than black: twitter.com/H_FJ/statuses/11800719859
-$link-color                : #607890;
-$link-hover-color          : #036;
+$font-color                : #222;  //looks better than black: twitter.com/H_FJ/statuses/11800719859
+$link-color                : #00e;
+$link-hover-color          : #06e;
+$link-visited-color        : #551a8b;
+
+// ETC
+$hr-color                  : #ccc;
+// Selection
 $selected-font-color       : #fff;
-$selected-background-color : #ff5e99;
-$list-left-margin          : 2em;
-$selection-color           : #2E7CA8;
+$selected-background-color : #fe57a1;
+// Lists
+$list-margin               : 1em 0;
+$list-padding              : 0 0 0 2em;
+
+// Container Width
 $container-width           : 1000px; // The max width of the container.
 $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 
 // -- Project Variables Overrides ---------
 
-$font-color:#455;
 
 
 // Hooks
 // ----------------------------------------
 // Mixins that are called from the Library files to add some extra styling.
 
-@mixin sk-html() {}
+@mixin sk-html() { }
 
-@mixin sk-body() {}
+@mixin sk-body() { }
 
 // h1, h2, h3, h4, h5, h6
 @mixin sk-header-tags() {
-  color:$font-color;
   font-weight:bold;
 }
 
@@ -50,9 +59,7 @@ $font-color:#455;
 // Global Styling
 // ----------------------------------------
 // Calculate all H# Tags.
-@include htags-sizes($base-font-size + 21px);
-// Add Styling for Simple_Forms.
-@include simple-forms();
+@include htags-sizes($base-font-size + 20);
 
 
 // Global Classes for extension.
@@ -71,7 +78,7 @@ $font-color:#455;
 // The Partials
 // ----------------------------------------
 // Base styles tanks to html5boilerplate. This one uses the Hooks defined before.
-@import "vendor/boilerplate/styles";
+@import "vendor/boilerplate-1.0/styles";
 
 // -- Shared Partials
   // Headers and related material go here.
@@ -83,7 +90,7 @@ $font-color:#455;
 
 // -- Layouts Partials
   // The most general one goes first
-  @import "app/layouts/application";
+  @import "app/layouts/app";
 
   // Compatibility.. oh jeez.
   @import "app/shared/ie";

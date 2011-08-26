@@ -14,6 +14,7 @@
 //
 // For more information see the table found at http://developer.yahoo.com/yui/3/cssfonts/#fontsize
 // From: compass-html5-boilerplate gem.
+
 @function size($size, $base-font-size: $base-font-size) {
   @return ceil(percentage($size / $base-font-size));
 }

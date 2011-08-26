@@ -22,11 +22,3 @@ $.ns('sk').add {
     $('> .hint.padded', this).css 'padding-left' : max
     labels.width(max)
 }
-
-window.log = (e) ->
-  console.log(e) if this.console
-  # log.history = log.history || [];  
-  # log.history.push(arguments);
-  # arguments.callee = arguments.callee.caller;  
-  # console.log( Array.prototype.slice.call(arguments) ) if this.console
-  

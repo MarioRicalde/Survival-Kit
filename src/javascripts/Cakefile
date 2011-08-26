@@ -1,14 +1,16 @@
+# TODO Rewrite this into a more useful way.
+
 #
 # Project Configuration
 #
 prod_coffee_files = [
-  'core'
+  'vendor/jquery.survival-kit.coffee'
+  'core.coffee'
 ]
 
 javascript_files = [
-  'modernizr-2.0.min.js'
+  'html5boilerplate'
   'jquery.condom.js'
-  'jquery.easy-slider-1.7.js'
   'jquery.tmpl.js'
 ].map (e) -> 'vendor/' + String(e)
 
