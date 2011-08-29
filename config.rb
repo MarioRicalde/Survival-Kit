@@ -9,6 +9,6 @@ images_dir        = "images/"
 javascripts_dir   = "javascripts"
 # http_images_path  = "/assets/"
 
-line_comments     = false
+line_comments     = true
 relative_assets   = true
 output_style      = :expanded  # :nested, :expanded, :compact, or :compressed.
