@@ -22,7 +22,6 @@ Thumbs.db
 # Extra
 .sass-cache
 .livereload
-src/stylesheets/app/layouts/*
 
 # Dreamweaver added files
 _notes
