@@ -167,12 +167,15 @@
 // 
 // Forms Styles (Survival Kit)
 // This styles are meant to be used with Simple_Forms (Rails)
-//
-@mixin simple-forms($selector : "simple_form") {
+// Usage:
+// simple-forms(default, option-1 option2)
+// Options:
+//    block-hints : display the hints right after the inut field.
+@mixin simple-forms($selector : "simple_form", $opts:false) {
   $input-width            : 300px;
   $input-font-size        : $base-font-size;
   $vertical-spacing       : 3px;
-  $horizontal-spacing     : 3px;
+  $horizontal-spacing     : 10px;
   $vertical-field-padding : $vertical-spacing * 2;
   
   // Colors.
@@ -180,7 +183,14 @@
   $input-shadow           : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
   $input-hover-color      : #7DBEF1;
   $input-hover-shadow     : 0 0 6px #7DBEF1;
-
+  
+  @if $selector == auto or $selector == default {
+    $selector: 'simple_form';
+  }
+  
+  // Force $opts into a list goddamnit.
+  $opts: join($opts, herp derp);
+  
   .#{$selector} {
     @include debug;
     & > .hint {
@@ -206,8 +216,12 @@
       line-height:$input-font-size + ($input-font-size * 0.26);
       abbr {
         @include debug(yellow);
-        color:#E62500;
-        margin-right:$horizontal-spacing;
+        @if index($opts, no-stars) {
+          display:none;
+        } @else {
+          color:#E62500;
+          margin-right:$horizontal-spacing;
+        }
       }
     }
     
@@ -223,8 +237,17 @@
       padding:$vertical-spacing 0;
       .hint {
         @extend .ext-sfr;
-        margin-left:$horizontal-spacing;
-        color: $hint-color;
+        // Block Hints.
+        @if index($opts, block-hints) {
+          display: block;
+          width: 342px;
+          padding: 2px 0 0 145px;
+          font-size: 11px;
+          color: #8A8A8A;
+        } @else {
+          margin-left:$horizontal-spacing;
+          color: $hint-color;
+        }
       }
     }
     
@@ -242,7 +265,7 @@
       width:$input-width + ($vertical-field-padding * 2);
     }
     
-    textarea, input[type=text], input[type=password] {
+    textarea, input[type=text], input[type=password], input[type=email] {
       font-size:$input-font-size;
       @if $input-shadow {
         @include box-shadow($input-shadow);
@@ -260,7 +283,14 @@
       }
     }
     
+    textarea {
+      height:80px;
+    }
+    
     input {
+      &.required {
+        background:#FFFFF5;
+      }
       &.check_boxes, &.radio, &.boolean {
         vertical-align:middle;
         margin-right:$horizontal-spacing;
@@ -271,7 +301,6 @@
     .button {
       @extend .sk-button;
     }
-    
     
     // Errors @todo: this should be in its own section.
     span.error {
@@ -295,6 +324,26 @@
       }
     }
     
+  }
+
+
+  // Make this compatible when you have no javascript loaded!
+  @if not index($opts, js-only) {
+    .no-js {
+      $hint-width:100px;
+      label {
+        width:$hint-width; 
+      }
+      @if index($opts, block-hints) {
+        .input .hint {
+          padding-left:$hint-width + $horizontal-spacing;
+        }
+      }
+      .actions {
+        margin:10px 0 10px ($hint-width + $horizontal-spacing);
+      }
+
+    }
   }
 }
 

@@ -77,6 +77,13 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
 	@include pos(0 50% 0 50%);
 }
 
+// Center a absolute element vertically; optional offset.
+@mixin pos-y-center($height, $offset:0) {
+  height:$height;
+  margin-top:$offset - ( $height / 2 );
+	@include pos(50% 0 50% 0);
+}
+
 // Set a debug variable.
 @mixin debug($color:red) {
   @if $debug != false {

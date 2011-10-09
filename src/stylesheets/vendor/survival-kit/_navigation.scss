@@ -25,6 +25,8 @@
     $font-size,
     $tab-space // Sets a tabbing space. 
   ) {
+  // $bg none or transparent will remove the background.
+  @if $tab-space == none { $tab-space:0;}
   @if $bg == none { $bg:transparent;}
 	@if $bg-active == auto { $bg-active:$bg-hover; }
 	@if $active-color == auto { $active-color:$hover-color; }
@@ -53,10 +55,19 @@
   
   
   a {
-    font-weight: $font-weight;
-    padding:$padding;
-    margin:$margin;
-    font-size:$font-size;
+    @if $font-weight != none {
+      font-weight: $font-weight;
+    }
+    @if $padding != none {
+      padding:$padding;
+    }
+    @if $margin != none {
+      margin:$margin;
+    }
+    @if $font-size != none {
+      font-size:$font-size;
+    }
+    
     text-decoration:none;
     color:$color;
     
@@ -89,6 +100,9 @@
       text-decoration:none;
     }
 
+    &:visited {
+      color:$active-color;
+    }
     &.active {
       @include _sk-nav-effects($active-color, $bg-active, $text-shadow, $box-shadow-active, $bg-hover);
       // Add tab space.
