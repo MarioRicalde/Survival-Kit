@@ -1,5 +1,5 @@
 /*
-  This is a compiled file! Any changes here may be overriden. 
+  This is a compiled file.
 */
 /* line 12, ../src/stylesheets/vendor/boilerplate-1.0/_reset.scss */
 html, body, div, span, object, iframe,
@@ -69,7 +69,13 @@ input, select {
   outline: none;
 }
 
-/* line 80, ../src/stylesheets/vendor/survival-kit/_tools.scss */
+/* line 29, ../src/stylesheets/vendor/survival-kit/_tools.scss */
+.no-mp {
+  margin: 0;
+  padding: 0;
+}
+
+/* line 96, ../src/stylesheets/vendor/survival-kit/_tools.scss */
 .w {
   margin: 0 auto;
   width: 1000px;
@@ -117,8 +123,18 @@ h6 {
   margin: 6.0px 0;
 }
 
-/* line 69, ../src/stylesheets/app.scss */
-.ext-corners {
+/* line 73, ../src/stylesheets/application.css.scss */
+.bradius {
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -o-border-radius: 6px;
+  -ms-border-radius: 6px;
+  -khtml-border-radius: 6px;
+  border-radius: 6px;
+}
+
+/* line 74, ../src/stylesheets/application.css.scss */
+.bradius-inner {
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   -o-border-radius: 4px;
@@ -182,6 +198,7 @@ pre, code, kbd, samp {
 /* line 48, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 ul, ol {
   margin: 1em 0;
+  padding: 0 0 0 2em;
 }
 
 /* line 50, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
@@ -225,17 +242,12 @@ a:hover, a:active {
 
 /* line 72, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 a, a:active, a:visited {
-  color: #0000ee;
+  color: #388dda;
 }
 
 /* line 74, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 a:hover {
   color: #0066ee;
-}
-
-/* line 77, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
 }
 
 /* line 80, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
@@ -332,6 +344,7 @@ del {
 /* line 132, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 select, input, textarea, button {
   font: 99% "Helvetica Neue", Arial, Helvetica, sans-serif;
+  outline: none;
 }
 
 /* line 134, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
@@ -395,58 +408,14 @@ button {
 
 /* line 173, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 ::-moz-selection {
-  background: #fe57a1;
+  background: #0084ac;
   color: white;
   text-shadow: none;
 }
 
 /* line 174, ../src/stylesheets/vendor/boilerplate-1.0/_styles.scss */
 ::selection {
-  background: #fe57a1;
+  background: #0084ac;
   color: white;
   text-shadow: none;
-}
-
-/* line 10, ../../../../.rvm/gems/ruby-1.9.2-p180/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-html, body {
-  height: 100%;
-}
-
-/* line 12, ../../../../.rvm/gems/ruby-1.9.2-p180/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-#container {
-  clear: both;
-  min-height: 100%;
-  height: auto !important;
-  height: 100%;
-  margin-bottom: -54px;
-}
-/* line 18, ../../../../.rvm/gems/ruby-1.9.2-p180/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-#container #footer-spacing {
-  height: 54px;
-}
-
-/* line 20, ../../../../.rvm/gems/ruby-1.9.2-p180/gems/compass-0.11.5/frameworks/compass/stylesheets/compass/layout/_sticky-footer.scss */
-footer {
-  clear: both;
-  position: relative;
-  height: 54px;
-}
-
-/* line 6, ../src/stylesheets/app/layouts/_app.scss */
-.app #main {
-  margin: 0 auto;
-  padding: 0 8px;
-  width: 984px;
-  overflow: hidden;
-  *zoom: 1;
-}
-/* line 16, ../src/stylesheets/app/layouts/_app.scss */
-.app .container > aside {
-  width: 215px;
-  float: left;
-}
-/* line 20, ../src/stylesheets/app/layouts/_app.scss */
-.app .container > .content {
-  width: 758px;
-  float: right;
 }

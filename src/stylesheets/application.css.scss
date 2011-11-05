@@ -1,46 +1,50 @@
-// Survival ✚ Kit
-// Bootstrapper File
+// Survival ✚ Kit [ Bootstrapper File ]
 
 // Dependencies
 // ----------------------------------------
 @import "vendor/survival-kit/secure";
 @import "compass";
 @import "vendor/boilerplate-1.0/reset";
-@import "compass/layout/sticky-footer";
 @import "vendor/survival-kit/loader";
-//@import "vendor/fancy-buttons/fancy-buttons";
 
 
 // Project Variables
 // ----------------------------------------
-
+// Use @include debug; to show a color overlay on the element when this is set to true.
 $debug                     : false;
-
 // Typography
 $base-font-family          : "Helvetica Neue", Arial, Helvetica, sans-serif;
 $base-font-size            : 13px;
 $base-line-height          : 1.231;
-$font-color                : #222;  //looks better than black: twitter.com/H_FJ/statuses/11800719859
+$font-color                : #222;
 $link-color                : #00e;
 $link-hover-color          : #06e;
 $link-visited-color        : #551a8b;
-
 // ETC
 $hr-color                  : #ccc;
 // Selection
 $selected-font-color       : #fff;
-$selected-background-color : #fe57a1;
+$selected-background-color : #0084AC;
 // Lists
 $list-margin               : 1em 0;
 $list-padding              : 0 0 0 2em;
-
 // Container Width
-$container-width           : 1000px; // The max width of the container.
+$container-width           : 1000px;
+// Use @if in-compatibility-mode() to add conditional CSS (useful for mixins).
 $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 
 // -- Project Variables Overrides ---------
 
+$g-content-width           : 1000px;
+$g-border-radius           : 6px; 
+$g-inner-border-radius     : 4px; 
 
+
+
+// -- Colors ------------------------------
+
+$link-color                : #388DDA;
+$border-dark-color         : #C0C0CA;
 
 // Hooks
 // ----------------------------------------
@@ -50,29 +54,24 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 
 @mixin sk-body() { }
 
-// h1, h2, h3, h4, h5, h6
-@mixin sk-header-tags() {
-  font-weight:bold;
-}
+@mixin sk-header-tags() {}
 
 
 // Global Styling
 // ----------------------------------------
 // Calculate all H# Tags.
 @include htags-sizes($base-font-size + 20);
+//@include simple-forms(auto, block-hints no-stars );
 
 
 // Global Classes for extension.
 // ----------------------------------------
 // Here you place classes which are used as extensions across all the project.
-// Prefix them with .ext-
-.ext-corners {
-  @include border-radius(4px);
-}
-
 // The default fancy button, used across the SK.
 // @TODO: Turn this into a mixin @include sk-button(small/medium/big);
-.ext-button {}
+.sk-button     { }
+.bradius       { @include border-radius($g-border-radius); }
+.bradius-inner { @include border-radius($g-inner-border-radius); }
 
 
 // The Partials
@@ -90,7 +89,7 @@ $compatibility-mode        : true, ie7 ie8 ie9 ff2 chrome9;
 
 // -- Layouts Partials
   // The most general one goes first
-  @import "app/layouts/app";
+  @import "app/layouts/application";
 
   // Compatibility.. oh jeez.
   @import "app/shared/ie";

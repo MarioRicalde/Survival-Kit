@@ -29,7 +29,7 @@
   }
 }
 
-// Facebook-ike asearch box.
+// Facebook-like search box.
 // @todo include the missing search image.
 // Code:
 // <div class="search-box">
@@ -164,6 +164,29 @@
   }
 }
 
+
+
+
+// Inputs.
+$input-shadow           : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2) !default;
+$input-hover-color      : #7DBEF1 !default;
+$input-hover-shadow     : 0 0 6px #7DBEF1 !default;
+
+// 
+// Adds the Input state effects
+//
+@mixin input-effects() {
+  @if $input-shadow { @include box-shadow($input-shadow); }
+  border:1px solid #CCCCCC;
+  outline: 0;
+  &:focus {
+    @if $input-hover-shadow {
+      @include box-shadow($input-hover-shadow);
+    }
+    border:1px solid $input-hover-color;
+  }
+  
+}
 // 
 // Forms Styles (Survival Kit)
 // This styles are meant to be used with Simple_Forms (Rails)
@@ -180,9 +203,6 @@
   
   // Colors.
   $hint-color             : #6E6E6E;
-  $input-shadow           : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 255, 255, 0.2);
-  $input-hover-color      : #7DBEF1;
-  $input-hover-shadow     : 0 0 6px #7DBEF1;
   
   @if $selector == auto or $selector == default {
     $selector: 'simple_form';
@@ -267,20 +287,11 @@
     
     textarea, input[type=text], input[type=password], input[type=email] {
       font-size:$input-font-size;
-      @if $input-shadow {
-        @include box-shadow($input-shadow);
-      }
-      outline: 0;
       padding: $vertical-field-padding 6px;
       vertical-align:top;
       width:$input-width;
-      border:1px solid #CCCCCC;
-      &:focus {
-        @if $input-hover-shadow {
-          @include box-shadow($input-hover-shadow);
-        }
-        border:1px solid $input-hover-color;
-      }
+      // Input Effects
+      @include input-effects;
     }
     
     textarea {

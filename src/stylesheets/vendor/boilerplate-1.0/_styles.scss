@@ -45,7 +45,7 @@
   pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
   // Lists
-  ul, ol { margin:$list-margin; }
+  ul, ol { margin:$list-margin; padding:$list-padding;}
 
   ol { list-style-type: decimal; }
 
@@ -129,7 +129,7 @@
 // Forms
 // ----------------------------------------
 
-  select, input, textarea, button { font: 99% $base-font-family; }
+  select, input, textarea, button { font: 99% $base-font-family; outline:none;}
   
   td { vertical-align: top; }
 
