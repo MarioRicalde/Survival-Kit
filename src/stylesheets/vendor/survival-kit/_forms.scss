@@ -78,7 +78,7 @@
 
 // A simple search box, generic.
 // If $width contains a second argument, it won't output the width to the parent element, allowing you to use box-size.
-// 
+//
 // <form action="#" accept-charset="utf-8" class="search-box">
 //   <input type="text" class="text" value="Search..." name="q" />
 //   <input type="submit" class="button" value="" />
@@ -98,7 +98,7 @@
   } @else {
     $width: nth($width, 1);
   }
-  
+
   input {
     font-size:$font-size;
     border:0;
@@ -172,7 +172,7 @@ $input-shadow           : inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 1px 0 rgba(255, 
 $input-hover-color      : #7DBEF1 !default;
 $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
 
-// 
+//
 // Adds the Input state effects
 //
 @mixin input-effects() {
@@ -185,9 +185,9 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
     }
     border:1px solid $input-hover-color;
   }
-  
 }
-// 
+
+//
 // Forms Styles (Survival Kit)
 // This styles are meant to be used with Simple_Forms (Rails)
 // Usage:
@@ -195,22 +195,26 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
 // Options:
 //    block-hints : display the hints right after the inut field.
 @mixin simple-forms($selector : "simple_form", $opts:false) {
+  $size-modifier          : 0px;
   $input-width            : 300px;
-  $input-font-size        : $base-font-size;
-  $vertical-spacing       : 3px;
+  $input-font-size        : $base-font-size + $size-modifier;
+  $vertical-spacing       : 7px;
   $horizontal-spacing     : 10px;
-  $vertical-field-padding : $vertical-spacing * 2;
-  
+  $label-width            :148px;
+
+  // 7px                  = base padding at 0 size modifier.
+  $vertical-field-padding : floor((7px + $size-modifier) + ($size-modifier / 4.4) * 2);
+
   // Colors.
   $hint-color             : #6E6E6E;
-  
+
   @if $selector == auto or $selector == default {
     $selector: 'simple_form';
   }
-  
+
   // Force $opts into a list goddamnit.
   $opts: join($opts, herp derp);
-  
+
   .#{$selector} {
     @include debug;
     & > .hint {
@@ -221,30 +225,41 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
         margin-left:$horizontal-spacing * 2;
       }
     }
-    
+
     p {
       padding:$vertical-field-padding 0;
       margin:$vertical-spacing;
     }
 
+    // Fix a issue with the spacing.
+    input.date {
+      label {
+        width: 145px !important;
+      }
+    }
+
     label {
       @include debug(green);
+      width:$label-width;
       vertical-align:middle; // double line labels.
       display:inline-block;  // works with already inline displayed items.
       margin:0 $horizontal-spacing 0 0;
       padding: $vertical-field-padding 0;
       line-height:$input-font-size + ($input-font-size * 0.26);
+      text-align: right;
       abbr {
         @include debug(yellow);
         @if index($opts, no-stars) {
           display:none;
         } @else {
           color:#E62500;
-          margin-right:$horizontal-spacing;
+          float: right;
+          margin-left: $horizontal-spacing;
         }
       }
+      &.boolean { width: auto; }
     }
-    
+
     .ext-sfr {
       @include debug(yellow);
       display: inline-block;
@@ -270,21 +285,24 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
         }
       }
     }
-    
+
     select {
       border:1px solid #CCCCCC;
       outline:none;
-      height:14px + 6px * 2; // @todo this needs to be generalized.
+      // floor(Font Size * Line Height) + (Vertical Input Padding * 2) + 1px)
+      $calc: floor(($input-font-size * $base-line-height ) + ($vertical-field-padding * 2)) + (1px);
+      height: $calc + 1px;
+      padding:(6px + $size-modifier) * $base-line-height ;
       &:focus {
         border:1px solid $input-hover-color;
       }
     }
-    
+
     // Needs to be nested so it doesn't collide with date selects.
     .select select {
       width:$input-width + ($vertical-field-padding * 2);
     }
-    
+
     textarea, input[type=text], input[type=password], input[type=email] {
       font-size:$input-font-size;
       padding: $vertical-field-padding 6px;
@@ -293,34 +311,37 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
       // Input Effects
       @include input-effects;
     }
-    
+
     textarea {
+      max-width:$input-width;
       height:80px;
     }
-    
+
     input {
-      &.required {
-        background:#FFFFF5;
-      }
       &.check_boxes, &.radio, &.boolean {
         vertical-align:middle;
         margin-right:$horizontal-spacing;
       }
     }
-    
+
+    .submit {
+      padding-left: $label-width + $horizontal-spacing;
+    }
+
     // Simple Form Button for the forms.
     .button {
       @extend .sk-button;
     }
-    
+
+
     // Errors @todo: this should be in its own section.
-    span.error {
+    span.error, .error {
       @extend .ext-sfr;
       color: #D65C5C;
       font-size: 12px;
       margin-left: 10px;
     }
-    
+
     #error_explanation {
       background: #FFEBD6;
       padding: 10px 14px;
@@ -334,16 +355,32 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
         margin-top:0;
       }
     }
-    
+
+
+      // Colors for form validity
+    input:valid, textarea:valid   {}
+
+    input:invalid, textarea:invalid {
+      $error-color: #FF6161;
+      box-shadow:$input-shadow, inset -7px 0px 0px lighten($error-color, 15%) !important;
+      &:focus {
+        @if $input-hover-shadow {
+          @include box-shadow($input-hover-shadow, inset -7px 0px 0px $error-color !important );
+        }
+      }
+    }
   }
 
 
   // Make this compatible when you have no javascript loaded!
   @if not index($opts, js-only) {
     .no-js {
-      $hint-width:100px;
+      $hint-width:148px;
       label {
-        width:$hint-width; 
+        width:$hint-width;
+      }
+      label.boolean {
+        width:auto;
       }
       @if index($opts, block-hints) {
         .input .hint {
@@ -363,7 +400,7 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
   $input-width            : $width;
   $horizontal-spacing     : 3px;
   $vertical-field-padding : $horizontal-spacing * 2;
-  
+
   textarea, input[type=text], input[type=password] {
     width:$width;
   }

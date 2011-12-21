@@ -13,7 +13,7 @@
 
 // Replace an A tag with an a background-image sprite. You need to provide it with
 // the dimentions of the image and the x-pos/y-pos
-// 
+//
 // @var $image string path to the image, inherit is useful.
 // @var $height width
 // @var $height pixels
@@ -36,6 +36,7 @@
   height: image-height($image);
   a {
     @include image-link($image, $inline);
+    &:hover { opacity: 0.7;}
   }
 }
 
@@ -85,9 +86,9 @@
 }
 
 // Add a background by passing the exact same parameters as a normal one. With
-// one more parameter $inline. Which will use inline-image and add backward 
+// one more parameter $inline. Which will use inline-image and add backward
 // compatibility to IE7 via *background.
-// 
+//
 // @var $color
 // @var $image string can be a path to an image or inherit (will insert tags separately)
 // @var $horizontal
@@ -115,6 +116,6 @@
 .ext-hide-text {
   @include hide-text;
   display:block;
-  direction: ltr; 
+  direction: ltr;
   outline:none;
 }

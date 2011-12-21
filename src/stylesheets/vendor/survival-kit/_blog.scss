@@ -38,7 +38,7 @@
 
 
 // Pagination Styling
-// ---------------------------------------- 
+// ----------------------------------------
 // <div class="pagination">
 //   <span class="previous_page disabled">← Previous</span>
 //   <em>1</em>
@@ -51,7 +51,7 @@
 // Notes for Later
 //$active-state: (border (1px solid red), height 300px, ..[infinite]);
 // Would Output:
-// border: 1px solid red; heigh: 300px; 
+// border: 1px solid red; heigh: 300px;
 
 // Normal, hover, active, disabled
 //$pagination-font-weights: normal bold normal;
@@ -64,33 +64,36 @@
 @mixin pagination() {
 	text-align:center;
 	* {
-		padding: 3px 8px;
 	  @include border-radius(4px);
 	}
-	em {
+	.current {
 		font-weight:bold;
-		color:#FFFFC2;
+		color:#0090BC;
 		font-size:14px;
+		padding: 3px 8px;
+		margin-right:2px;
 	}
 	.disabled {
 		color:#518CBC;
 		border:1px solid #518CBC;
 	}
 	a {
-//    background-color: #F5F5F5;
-//    border: 1px solid #AEAEAE;
+		padding: 3px 8px;
+    @include gradient(#80DFFF, #3BBBE7);
+		@include box-shadow(0 2px 0px #EBEBEB);
     text-decoration:none;
-    @include gradient(#fff, #ECF4F8);
-		color: #7F7F7F;
+		color: #FFF;
 		font-weight: bold;
-		@include box-shadow(0 2px 0px #5D96CC);
+		border:1px solid #4DC6EF;
     &:active {
       @include box-shadow(0px 1px #96C5FA, inset 0px 1px #5D96CC);
       background:#F6FAFC !important;
     }
 		&:hover {
-			background:#FFFFFF;
+			background:#D0F0FC;
+			border:1px solid #4DC6EF;
 			color:$link-hover-color;
+			@include box-shadow(none);
 		}
 	}
 }

@@ -1,7 +1,7 @@
 // HTML5 ✰ Boilerplate
-// 
+//
 // style.css contains a reset, font normalization and some base styles.
-// 
+//
 // Credit is left where credit is due.
 // Much inspiration was taken from these projects:
 // - yui.yahooapis.com/2.8.1/build/base/base.css
@@ -15,10 +15,10 @@
     @include sk-html;
   }
 
- 
+
 // Sections (body, section, nav, article, aside, h1..6, header, footer, address)
 // ----------------------------------------
-  
+
   body, select, input, textarea { color: $font-color; font-family: $base-font-family; }
 
   body { font-size: $base-font-size; line-height: $base-line-height;  @include sk-body; }
@@ -28,12 +28,13 @@
 // ----------------------------------------
 
   p { margin: 0 0 1.5em 0; }
-  
+  li { margin-bottom: (1.5em / 3);}
+
   hr { display: block; height: 1px; border: 0; border-top: 1px solid $hr-color; margin: 1em 0; padding: 0; }
-  
+
   blockquote  { margin: 1.5em; color: #666; font-style: italic; }
 
-  // normalize monospace sizing 
+  // normalize monospace sizing
   // meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
   // en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome
   pre {
@@ -41,7 +42,7 @@
     white-space: pre; white-space: pre-wrap; word-wrap: break-word;
     padding: 15px;
   }
-  
+
   pre, code, kbd, samp { font-family: monospace, sans-serif; }
 
   // Lists
@@ -52,12 +53,12 @@
   // Remove margin from navigation lists.
   nav ul,
   nav li  { margin: 0; list-style:none; list-style-image: none; }
-  
+
   // Lists
   dl      { margin: 0 0 1.5em 0; }
-  
+
   dl dt   { font-weight: bold; }
-  
+
   dd      { margin-left: 1.5em;}
 
 
@@ -66,37 +67,37 @@
 
   // Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test
   a {text-decoration:none;}
-  
+
   a:hover, a:active { outline: none; text-decoration:underline;}
-  
+
   a, a:active, a:visited { color: $link-color; }
-  
+
   a:hover { color: $link-hover-color; }
-  
+
   // Headers (h1, h2, etc) have no default font-size or margin; define those yourself
   h1, h2, h3, h4, h5, h6 { @include sk-header-tags; }
-  
+
   // j.mp/webkit-tap-highlight-color
   a:link { -webkit-tap-highlight-color: #FF5E99; }
-  
+
   small { font-size: 85%; }
-  
+
   strong, b, th, dfn { font-weight: bold; }
-  
+
   em, i { font-style:italic; }
-  
+
   mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
-  
+
   abbr,
   acronym     { border-bottom: 1px dotted #666; }
-  
+
   address     { margin: 0 0 1.5em; font-style: italic; }
-  
+
   // Set sub, sup without affecting line-height: gist.github.com/413930
   sub, sup { font-size: 75%; line-height: 0; position: relative; }
-  
+
   sup { top: -0.5em; }
-  
+
   sub { bottom: -0.25em; }
 
 
@@ -106,23 +107,23 @@
   // Bicubic resizing for non-native sized IMG:
   // code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/
   .ie7 img { -ms-interpolation-mode: bicubic; }
-  
-  
+
+
 // Tabular Data (table, caption, colgroup, col, tbody, thead, tfoot, tr, td, th)
 // ----------------------------------------
-  
+
   table       { margin-bottom: 1.4em; width:100%; }
-  
+
   th          { font-weight: bold; }
-  
+
   th,td,caption { padding: 4px 10px 4px 5px; text-align: left; }
 
 
 // Edits (ins, del)
 // ----------------------------------------
-  
+
   ins { background-color: #ff9; color: #000; text-decoration: none; }
-  
+
   del { color:#666; }
 
 
@@ -130,7 +131,7 @@
 // ----------------------------------------
 
   select, input, textarea, button { font: 99% $base-font-family; outline:none;}
-  
+
   td { vertical-align: top; }
 
   textarea { overflow: auto; }
@@ -147,12 +148,8 @@
   // Webkit browsers add a 2px margin outside the chrome of form elements
   button, input, select, textarea { margin: 0; }
 
-  // Colors for form validity
-  input:valid, textarea:valid   {  }
 
-  input:invalid, textarea:invalid {
-     border-radius: 1px; -moz-box-shadow: 0px 0px 5px red; -webkit-box-shadow: 0px 0px 5px red; box-shadow: 0px 0px 5px red;
-  }
+  // required:valid and required:invalid moved to form.scss
 
   // Make buttons play nice in IE:
   // www.viget.com/inspire/styling-the-button-element-in-internet-explorer/
@@ -162,7 +159,7 @@
   .ie7 input[type="checkbox"] { vertical-align: baseline; }
 
   .ie6 input { vertical-align: text-bottom; }
-  
+
   .ie6 legend, .ie7 legend { margin-left: -7px; }
   }
 

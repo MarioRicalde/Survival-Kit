@@ -93,7 +93,7 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
 }
 
 // Class available to center container to 1000px
-.w {
+.w, .pagewidth {
 	@include center-container($container-width);
 }
 
@@ -217,3 +217,18 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
   }
 }
 
+@mixin transition($property: all, $time: 400ms, $easing: ease-out){
+  -moz-transition: $property $time $easing;
+  -o-transition: $property $time $easing;
+  -webkit-transition: $property $time $easing;
+  -ms-transition: $property $time $easing;
+  transition: $property $time $easing;
+}
+
+// Calculate the Golden Ratio of a given value.
+// ----------------------------------------
+@function golden-ratio($size, $type) {
+  $big   : round($size / 1.61803);
+  $small : $size - $big;
+  @return if($type == large, $big, $small);
+}
