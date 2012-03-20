@@ -140,6 +140,7 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
       }
     }
 
+
     label {
       @include debug(green);
       vertical-align:middle;
@@ -159,7 +160,7 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
           margin-left: $horizontal-spacing;
         }
       }
-      &.boolean, &.collection_radio { padding:0; width: auto;}
+      &.boolean, &.collection_radio_buttons { padding:$horizontal-spacing/2; width: auto;}
     }
 
     .ext-sfr {
@@ -179,6 +180,9 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
         font-size: size(11px);
         padding: 2px 0 0 ($label-width + $horizontal-spacing);
         width: $input-width + ($horizontal-field-padding * 2) + $horizontal-spacing;
+      }
+      &.boolean {
+        padding: 2px 0 0 ($label-width + $horizontal-spacing);
       }
     }
 
@@ -214,7 +218,6 @@ $input-hover-shadow     : 0 0 6px #7DBEF1 !default;
 
     input {
       &.check_boxes, &.radio, &.boolean {
-        margin-right:$horizontal-spacing;
         vertical-align:middle;
       }
     }
