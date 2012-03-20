@@ -11,8 +11,8 @@
 // Modified to fit Survival ✚ Kit
 
   html {
-    overflow-y: scroll;
     @include sk-html;
+    overflow-y: scroll;
   }
 
 
@@ -21,18 +21,18 @@
 
   body, select, input, textarea { color: $font-color; font-family: $base-font-family; }
 
-  body { font-size: $base-font-size; line-height: $base-line-height;  @include sk-body; }
+  body {  @include sk-body; font-size: $base-font-size; line-height: $base-line-height; }
 
 
 // Grouping Content (p, hr, pre, blockquote, ol, ul, li, dl, dt, dt, dd, figure, figcaption, div)
 // ----------------------------------------
 
-  p { margin: 0 0 1.5em 0; }
-  li { margin-bottom: (1.5em / 3);}
+  p { margin: 0 0 1em 0;}
+  li { margin-bottom: (1em / 2);}
 
-  hr { display: block; height: 1px; border: 0; border-top: 1px solid $hr-color; margin: 1em 0; padding: 0; }
+  hr { border: 0; border-top: 1px solid $hr-color; display: block; height: 1px; margin: 1em 0; padding: 0; }
 
-  blockquote  { margin: 1.5em; color: #666; font-style: italic; }
+  blockquote  { color: #666; font-style: italic; margin: 1.5em; }
 
   // normalize monospace sizing
   // meyerweb.com/eric/thoughts/2010/02/12/fixed-monospace-sizing/
@@ -52,7 +52,7 @@
 
   // Remove margin from navigation lists.
   nav ul,
-  nav li  { margin: 0; list-style:none; list-style-image: none; }
+  nav li  { list-style:none; list-style-image: none; margin: 0; }
 
   // Lists
   dl      { margin: 0 0 1.5em 0; }
@@ -91,7 +91,7 @@
   abbr,
   acronym     { border-bottom: 1px dotted #666; }
 
-  address     { margin: 0 0 1.5em; font-style: italic; }
+  address     { font-style: italic; margin: 0 0 1.5em; }
 
   // Set sub, sup without affecting line-height: gist.github.com/413930
   sub, sup { font-size: 75%; line-height: 0; position: relative; }
@@ -153,7 +153,7 @@
 
   // Make buttons play nice in IE:
   // www.viget.com/inspire/styling-the-button-element-in-internet-explorer/
-  button {  width: auto; overflow: visible; }
+  button { overflow: visible;  width: auto; }
 
   @if in-compatibility-mode() {
   .ie7 input[type="checkbox"] { vertical-align: baseline; }

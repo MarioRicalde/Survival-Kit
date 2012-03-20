@@ -23,8 +23,6 @@
 // Calculate margin and line height according to the given size.
 @mixin header-size($size) {
   font-size: size($size);
-  line-height: $size * $base-line-height;
-  margin:($size / 2.2) 0;
 }
 
 // Calculate the Header based on the H1 Max size.

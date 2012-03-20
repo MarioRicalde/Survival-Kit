@@ -1,32 +1,32 @@
 $facebox-overlay: #000 !default;
 #facebox {
-  position: fixed;
-  top: 0;
   left: 0;
-  z-index: 100;
+  position: fixed;
   text-align: left;
+  top: 0;
+  z-index: 100;
 }
 
 
 #facebox .popup{
-  position:relative;
-  border:3px solid rgba(0,0,0,0);
-  -webkit-border-radius:5px;
-  -moz-border-radius:5px;
+  border:9px solid rgba(0, 157, 214, 0.8);
   border-radius:5px;
-  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
-  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
   box-shadow:0 0 18px rgba(0,0,0,0.4);
+  -moz-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  -webkit-box-shadow:0 0 18px rgba(0,0,0,0.4);
+  position:relative;
 }
 
 #facebox .content {
+  background: #fff;
+  border-radius:4px;
+  -moz-border-radius:4px;
+  -webkit-border-radius:4px;
   display:table;
   min-width: 370px;
   padding: 10px;
-  background: #fff;
-  -webkit-border-radius:4px;
-  -moz-border-radius:4px;
-  border-radius:4px;
 }
 
 #facebox .content > p:first-child{
@@ -37,11 +37,11 @@ $facebox-overlay: #000 !default;
 }
 
 #facebox .close{
-  position:absolute;
-  z-index:101;
-  top:5px;
-  right:5px;
   padding:2px;
+  position:absolute;
+  right:5px;
+  top:5px;
+  z-index:101;
 }
 #facebox .close img{
   opacity:0.3;
@@ -64,10 +64,10 @@ $facebox-overlay: #000 !default;
 }
 
 #facebox_overlay {
+  height:100%;
+  left: 0px;
   position: fixed;
   top: 0px;
-  left: 0px;
-  height:100%;
   width:100%;
 }
 

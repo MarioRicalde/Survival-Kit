@@ -72,16 +72,16 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
 
 // Center a absolute element horizontally; optional offset.
 @mixin pos-x-center($width, $offset:0) {
-  width:$width;
+  @include pos(0 50% 0 50%);
   margin-left:$offset - ( $width / 2 );
-	@include pos(0 50% 0 50%);
+  width:$width;
 }
 
 // Center a absolute element vertically; optional offset.
 @mixin pos-y-center($height, $offset:0) {
+  @include pos(50% 0 50% 0);
   height:$height;
   margin-top:$offset - ( $height / 2 );
-	@include pos(50% 0 50% 0);
 }
 
 // Set a debug variable.
@@ -117,7 +117,7 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
     background-image: -ms-linear-gradient($start, $from, $to);
     background-image: -o-linear-gradient($start, $from, $to);
     @if in-compatibility-mode()  {
-      filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$from}', EndColorStr='#{$to}');
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#{ie-hex-str($from)}', EndColorStr='#{ie-hex-str($to)}');
     }
   } @else if $end == bottom {
     background-image: -webkit-gradient(linear, left $start,  0 $end, from($from), to($to));
@@ -218,11 +218,11 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
 }
 
 @mixin transition($property: all, $time: 400ms, $easing: ease-out){
+  transition: $property $time $easing;
   -moz-transition: $property $time $easing;
+  -ms-transition: $property $time $easing;
   -o-transition: $property $time $easing;
   -webkit-transition: $property $time $easing;
-  -ms-transition: $property $time $easing;
-  transition: $property $time $easing;
 }
 
 // Calculate the Golden Ratio of a given value.
@@ -231,4 +231,37 @@ $compatibility-mode        : true, ie ie7 ie8 ie9 ff2 chrome9 !default;
   $big   : round($size / 1.61803);
   $small : $size - $big;
   @return if($type == large, $big, $small);
+}
+
+
+//
+// @TODO: Add docs to link-colors!
+//
+@mixin link-colors($normal, $hover: false, $active: false, $visited: false, $focus: false) {
+  @if $normal == default {
+    $hover: $link-hover-color;
+    $normal: $link-color;
+    $visited: $link-visited-color;
+  }
+  color: $normal;
+  @if $visited {
+    &:visited {
+      color: $visited; } }
+  @if $focus {
+    &:focus {
+      color: $focus; } }
+  @if $hover {
+    &:hover {
+      color: $hover; } }
+  @if $active {
+    &:active {
+      color: $active; } }
+}
+
+// Substract the Body to the Container width to get the sidebar.
+@function sidebar($body-width, $container-width-over: false) {
+  @if $container-width-over == false {
+    $container-width-over : $container-width;
+  }
+  @return $container-width - $body-width;
 }

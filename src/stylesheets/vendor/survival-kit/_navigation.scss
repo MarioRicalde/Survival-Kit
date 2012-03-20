@@ -1,8 +1,8 @@
 // Survival ✚ Kit
 
 // Horizontal Navigation Low-level Method.
-// 
-// It's meant to be called from other predifined mixins to avoid calling so many variables per call. 
+//
+// It's meant to be called from other predifined mixins to avoid calling so many variables per call.
 // Used from ul/ol
 @mixin horizontal-navigation(
     $height,
@@ -23,14 +23,14 @@
     $border-radius,
     $font-weight,
     $font-size,
-    $tab-space // Sets a tabbing space. 
+    $tab-space // Sets a tabbing space.
   ) {
   // $bg none or transparent will remove the background.
   @if $tab-space == none { $tab-space:0;}
   @if $bg == none { $bg:transparent;}
 	@if $bg-active == auto { $bg-active:$bg-hover; }
 	@if $active-color == auto { $active-color:$hover-color; }
-  
+
   // Border Calculation
   // ----------------------------------------
   // Check if borders are set to anything but none / auto.
@@ -41,19 +41,19 @@
     // Borders calculated magically.
     @include _sk-nav-borders(lighten($bg, 10%), darken($bg, 10%));
   }
-  
+
   height:$height; // instead of clearfix, to keep shadows alive.
   margin: 0;
   list-style:none;
-  
+
   // Links and input
   li, a {
     display:block;
     float:left;  // this can make it inline or block level.
     line-height:$height;
   }
-  
-  
+
+
   a {
     @if $font-weight != none {
       font-weight: $font-weight;
@@ -67,34 +67,34 @@
     @if $font-size != none {
       font-size:$font-size;
     }
-    
+
     text-decoration:none;
     color:$color;
-    
+
     @if $bg != transparent {
       background:$bg;
     }
-    
+
     @if $box-shadow != none {
       @include box-shadow($box-shadow);
     }
-    
+
     @if $text-shadow != none {
       @include text-shadow($text-shadow, 1px, 1px, 1px);
     }
-    
+
     @if $border-radius != none {
       @include border-radius($border-radius);
     }
-    
+
     // Feature for tabs.
     @if $tab-space != 0 {
       margin-top: -($tab-space);
     }
-    
+
     // States
     // ----------------------------------------
-    
+
     &:hover{
       @include _sk-nav-effects($hover-color, $bg-hover, $text-shadow, $box-shadow-hover, $bg-hover);
       text-decoration:none;
@@ -120,7 +120,7 @@
 	}
   @if $bg != transparent {
     @if $bg-hover == auto {
-       background:darken($bg,3%); 
+       background:darken($bg,3%);
     } @else {
       background:$bg;
     }
@@ -136,7 +136,7 @@
 
 // Low level mixin.
 // Invoked by other mixins.
-// 
+//
 // @var $left the left border.
 // @var $right the right border
 @mixin _sk-nav-borders($left, $right) {
@@ -153,15 +153,78 @@
     };
     &.active, &.active:hover {
       border:{
-        right:1px solid transparent;
         left:1px solid transparent;
+        right:1px solid transparent;
       };
     }
     &:hover {
       border:{
-        right:1px solid transparent;
         left:1px solid transparent;
+        right:1px solid transparent;
       };
+    }
+  }
+}
+
+//
+// @TODO: Add docs to tabs!
+//
+@mixin navigation-classes($opts: tabs) {
+  $opts: join($opts, force list);
+  .nav {
+    list-style: none;
+    margin-bottom: $base-line-height;
+    margin-left: 0;
+  }
+
+  // Make links block level
+  .nav > li > a {
+    display: block;
+  }
+  .nav > li > a:hover {
+    background-color: #EEEEEE;
+    text-decoration: none;
+  }
+
+  // Common styles
+  .nav-tabs {
+    @extend .nav;
+    @include pie-clearfix();
+  }
+  .nav-tabs > li, .nav-pills > li {
+    float: left;
+  }
+  .nav-tabs > li > a {
+    line-height: 14px;
+    margin-right: 2px;
+    padding-left: 12px;
+    padding-right: 12px; // keeps the overall height an even number
+  }
+
+  .nav-tabs {
+    border-bottom: 1px solid #ddd;
+  }
+
+  .nav-tabs > li {
+    margin-bottom: -1px;
+  }
+
+  .nav-tabs > li > a {
+    @include border-radius(4px 4px 0 0);
+    border: 1px solid transparent;
+    padding-bottom: 9px;
+    padding-top: 9px;
+    &:hover {
+      border-color: #EEEEEE #EEEEEE #ddd;
+    }
+  }
+  .nav-tabs > .active {
+    a, a:hover {
+      background-color: #FFF;
+      border: 1px solid #ddd;
+      border-bottom-color: transparent;
+      color: gray;
+      cursor: default;
     }
   }
 }
