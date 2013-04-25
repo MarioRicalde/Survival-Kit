@@ -21,7 +21,7 @@ This uses AVA Pattern paradigm; also we'll provide a boilerplate HTML/Haml docum
   * [HTML5Doctor CSS reset](http://html5doctor.com/html-5-reset-stylesheet/): Public Domain
   * [CSS Reset Reloaded](http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/): Public Domain
 
-##### Survival-Kit Copyright (c) 2011 Mario "Kuroir" Ricalde
+##### Survival-Kit Copyright (c) 2013 [Mario Ricalde](http://mario.ricalde.mx)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
